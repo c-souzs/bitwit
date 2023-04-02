@@ -1,0 +1,41 @@
+Como realizar consultas
+
+type Profile {
+    id: 2,
+    photo_url: 'https://my-selfie.png'
+}
+
+type User {
+    id: number
+    name: string
+    age: number
+    profile: Profile
+}
+
+type Product {
+    id: number,
+    name: string
+    price: float
+}
+
+type Query {
+    user: User
+    products: [Products]
+}
+
+query {
+    // Passa os valores que você quer que retorna
+    user: {
+        id,
+        name,
+        profile {
+            photo_url
+        }
+    }
+    // Mesmo assim ele retorna um array
+    products: {
+        id,
+        name,
+        price
+    }
+}
