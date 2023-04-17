@@ -1,4 +1,4 @@
-import { inter } from "@/pages/_app"
+import { inter } from "pages/_app"
 import classNames from "classnames"
 import { ReactNode } from "react"
 import Header from "../Header"

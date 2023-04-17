@@ -1,6 +1,6 @@
-import { roboto } from "@/pages/_app";
 import classNames from "classnames";
-import Button from "src/components/ui/Button";
+import Button from "components/ui/Button";
+import { roboto } from "pages/_app";
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +44,20 @@ const PostCard = ({ blur }: PostProps) => {
                     className='w-full block object-cover'/>
                 <div className='p-3'>
                     <h3 className='flex items-center gap-2 text-emerald-500 text-xl font-medium mb-2 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>React com Redux Thunk</h3>
+                    <ul className='flex flex-wrap justify-start items-center gap-2 mb-2'>
+                        <li className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full py-1 px-3'>
+                            JAVA
+                        </li>
+                        <li className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full py-1 px-3'>
+                            JAVASCRIPT
+                        </li>
+                        <li className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full py-1 px-3'>
+                            REACT
+                        </li>
+                        <li className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full py-1 px-3'>
+                            REDUX
+                        </li>
+                    </ul>
                     <p className={`${roboto.className} mb-5`}>Lorem ipsum é um texto em latim usado como preenchimento de espaços em branco em projetos de design gráfico.</p>
                     {!blur && (
                         <Button 

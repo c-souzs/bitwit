@@ -1,6 +1,6 @@
-import { roboto } from "@/pages/_app";
+import { roboto } from "pages/_app";
 import classNames from "classnames";
-import Container from "src/components/ui/Container";
+import Container from "components/ui/Container";
 
 const SearchIcon = () => (
     <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="none" stroke="#FFF" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

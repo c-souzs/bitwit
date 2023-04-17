@@ -1,9 +1,9 @@
 import { SignIn } from "@phosphor-icons/react";
 import Link from "next/link";
 import Logo from "../../ui/Logo";
-import Container from "src/components/ui/Container";
+import Container from "components/ui/Container";
 import classNames from "classnames";
-import { inter } from "@/pages/_app";
+import { inter } from "pages/_app";
 
 const Header = () => {
     return(

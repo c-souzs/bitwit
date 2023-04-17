@@ -1,4 +1,5 @@
-import PostCard from "src/components/shared/PostCard";
+import PostCard from "components/shared/PostCard";
+import React from "react";
 
 const PostsList = () => {
     return (

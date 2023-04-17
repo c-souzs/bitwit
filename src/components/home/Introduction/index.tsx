@@ -1,9 +1,9 @@
-import { roboto, robotoMono } from "@/pages/_app";
+import { roboto, robotoMono } from "pages/_app";
 import classNames from "classnames";
 import React from "react";
-import Button from "src/components/ui/Button";
-import Container from "src/components/ui/Container";
-import useTyping from "src/hooks/useTyping";
+import Button from "components/ui/Button";
+import Container from "components/ui/Container";
+import useTyping from "hooks/useTyping";
 
 const techs = [
     'React, Node.js, Express, MongoDB, Redux',
