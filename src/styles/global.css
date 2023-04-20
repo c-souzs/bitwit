@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    @keyframes loaderAnimation {
+        20% {
+            background-size: 4.5px 60%, 4.5px 100%, 4.5px 100%;
+        }
+        40% {
+            background-size: 4.5px 80%, 4.5px 60%, 4.5px 100%;
+        }
+        60% {
+            background-size: 4.5px 100%, 4.5px 80%, 4.5px 60%;
+        }
+        80% {
+            background-size: 4.5px 100%, 4.5px 100%, 4.5px 80%;
+        }
+    }
+
+    .loader {
+        width: 22.5px;
+        height: 20px;
+        background: linear-gradient(#018673 0 0) 0% 100%,
+            linear-gradient(#018673 0 0) 50% 100%,
+            linear-gradient(#018673 0 0) 100% 100%;
+        background-size: 4.5px 100%;
+        background-repeat: no-repeat;
+        animation: loaderAnimation 1s infinite linear;
+    }
+}

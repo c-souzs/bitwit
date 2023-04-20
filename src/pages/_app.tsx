@@ -1,6 +1,8 @@
+import { queryClient } from '../service/queryClient'
 import '../styles/global.css'
 import type { AppProps } from 'next/app'
 import { Inter, Roboto, Roboto_Mono } from 'next/font/google'
+import { QueryClientProvider } from 'react-query'
 
 export const inter = Inter({ 
     weight: ['400', '500', '600'],
@@ -19,5 +21,9 @@ export const robotoMono = Roboto_Mono({
   
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return ( <Component {...pageProps} /> )
+  return ( 
+        <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+        </QueryClientProvider>
+   )
 }

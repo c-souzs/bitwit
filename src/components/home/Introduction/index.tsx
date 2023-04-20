@@ -1,17 +1,15 @@
-import { roboto, robotoMono } from "pages/_app";
-import classNames from "classnames";
 import React from "react";
+import { roboto, robotoMono } from "pages/_app";
+
+import classNames from "classnames";
+
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
 import useTyping from "hooks/useTyping";
 
-const techs = [
-    'React, Node.js, Express, MongoDB, Redux',
-    'Angular, Spring Boot, PostgreSQL, RxJS, Material UI',
-    'Vue.js, Django, SQLite, Nuxt.js, Vuetify',
-    'jQuery, Laravel, MySQL, Bootstrap, Font Awesome',
-    'Ember.js, Ruby on Rails, PostgreSQL, Handlebars.js, Ember CLI'
-  ];
+type IntroductionProps = {
+    dataAnimation: string[]
+}
 
 const AlertScroll = () => {
     return (
@@ -33,8 +31,8 @@ const AlertScroll = () => {
     )
 }
 
-const Introduction = () => {
-    const text = useTyping(techs)
+const Introduction = ({ dataAnimation }: IntroductionProps) => {
+    const text = useTyping(dataAnimation)
 
     return (
         <section

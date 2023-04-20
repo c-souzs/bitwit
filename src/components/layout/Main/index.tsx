@@ -11,7 +11,7 @@ const LayoutMain = ({ children }: LayoutMainProps) => {
     return (
         <>  
             <Header />
-            <main className={classNames('bg-glacial-emerald-50 pb-16', inter.className)}>
+            <main className={classNames('bg-glacial-emerald-50 pb-14', inter.className)}>
                 {children}
             </main>
         </>
