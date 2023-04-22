@@ -4,7 +4,6 @@ import { roboto, robotoMono } from "pages/_app";
 import classNames from "classnames";
 
 import Button from "components/ui/Button";
-import Container from "components/ui/Container";
 import useTyping from "hooks/useTyping";
 
 type IntroductionProps = {
@@ -38,9 +37,7 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
         <section
             className='h-[calc(100vh-80px)] relative'
         >
-            <Container
-                type='flex-center'
-            >
+            <div className='max-w-6xl h-full w-full mx-auto px-5 flex items-center justify-center'>
                 <div className='flex flex-col items-center justify-center text-center 
                     lg:mb-24'>
                     <h1 
@@ -67,7 +64,7 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
                         INSCREVA-SE
                     </Button>
                 </div>
-            </Container>
+            </div>
             <AlertScroll />
         </section>
     )

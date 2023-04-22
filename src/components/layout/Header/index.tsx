@@ -1,7 +1,6 @@
 import { SignIn } from "@phosphor-icons/react";
 import Link from "next/link";
 import Logo from "../../ui/Logo";
-import Container from "components/ui/Container";
 import classNames from "classnames";
 import { inter } from "pages/_app";
 
@@ -10,9 +9,7 @@ const Header = () => {
         <header
             className={classNames('h-20 bg-glacial-emerald-50 relative after:absolute after:block after:w-full after:h-0.5 after:bg-[#F0F2F2]', inter.className)}
         >
-            <Container
-                type='flex-between'
-            >
+            <div className='max-w-6xl h-full w-full mx-auto px-5 flex justify-between items-center'>
                 <Logo />
                 <Link 
                     href='/login'
@@ -25,7 +22,7 @@ const Header = () => {
                         <SignIn color='#000' size={20}/>
                     </span>
                 </Link>
-            </Container>
+            </div>
         </header>
     )
 }

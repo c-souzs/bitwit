@@ -23,3 +23,40 @@ export const GET_TAGS = gql`
         }
     }
 `
+
+export const GET_POSTS_SLUG = gql`
+    query getPostsSlug($first: Int) {
+        posts(first: $first) {
+            slug
+        }
+    }
+`
+
+export const GET_POST_BY_SLUG = gql`
+    query getPostBySlug($slug: String) {
+        post(where: { slug: $slug }) {
+            coverImage {
+                url
+            }
+            seo {
+                description
+                keywords
+                title
+            }
+            title
+            tag {
+                name
+            }
+            content {
+                html
+            }
+            author {
+                name
+                picture {
+                    url
+                }
+            }
+            createdAt
+        }
+    }
+`

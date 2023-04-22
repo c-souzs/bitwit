@@ -2,8 +2,6 @@ import { roboto } from "pages/_app";
 import React, { FormEvent } from "react";
 import classNames from "classnames";
 
-import Container from "components/ui/Container";
-
 type SearchPostProps = {
     tags: string[]
 }
@@ -31,7 +29,7 @@ const SearchPost = ({ tags }: SearchPostProps) => {
 
     return (
         <section className={classNames(roboto.className)}>
-            <Container type='block' role='search' aria-label='Área de filtagrem e busca de posts.'>
+            <div className='max-w-6xl h-full w-full mx-auto px-5' role='search' aria-label='Área de filtagrem e busca de posts.'>
                 <form className='max-w-[80vw] w-full mx-auto pt-6 pb-12' onSubmit={handleSearch}>
                     <div className='flex'>
                         <label htmlFor='search-category' className='sr-only'>Search Category</label>
@@ -74,7 +72,7 @@ const SearchPost = ({ tags }: SearchPostProps) => {
                         </div>
                     </div>
                 </form>
-            </Container>
+            </div>
         </section>
     );
 };

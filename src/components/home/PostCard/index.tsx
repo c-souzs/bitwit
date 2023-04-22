@@ -3,6 +3,7 @@ import { roboto } from "pages/_app";
 
 import { PostCardData } from "types";
 import Button from "components/ui/Button";
+import LinkWrapper from "@/components/ui/Link";
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" aria-label="Ícone de seta para a direita, indicando que vai para outra página." xmlns="http://www.w3.org/2000/svg">
@@ -42,28 +43,31 @@ const PostCard = ({ blur, data }: PostProps) => {
                 )
             }
             <div className={classNames({'blur-[2px]': blur})}>
-                <img 
-                    src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 
-                    alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}  
-                    aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
-                    className='w-full block object-cover'/>
+                <figure>
+                    <img 
+                        src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 
+                        alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}  
+                        aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
+                        className='w-full block object-cover'/>
+                </figure>
                 <div className='p-3'>
                     <h3 className='flex items-center gap-2 text-emerald-500 text-xl font-medium mb-2 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>{ title }</h3>
                     {
-                        <ul className='flex flex-wrap gap-4 mb-2'>
+                        <div className='flex flex-wrap gap-4 mb-2'>
                             {
-                                tags.map(({ name }) => <li key={`tag-${name}`} className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full px-3 py-1'>{name}</li>)
+                                tags.map(({ name }) => <span key={`tag-${name}`} className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full px-3 py-1'>{name}</span>)
                             }
-                        </ul>
+                        </div>
                     }
                     <p className={`${roboto.className} mb-5`}>{ excerpt }</p>
                     {!blur && (
-                        <Button 
-                            small 
-                            aria-label='Ir para a página de leitura do post para ler o post completo.'> 
-                            Acessar 
-                            <ArrowLeft />
-                        </Button>
+                        <LinkWrapper 
+                            href={`/post/${slug}`}
+                            aria-label='Vai para a página de leitura do post.'
+                            >
+                                Acessar 
+                                <ArrowLeft />
+                        </LinkWrapper>
                     )}
                 </div>
             </div>

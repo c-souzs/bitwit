@@ -52,7 +52,11 @@ module.exports = {
             'blink': 'blink .9s infinite'
         },
         gridTemplateColumns: {
-            'form-search': '1fr auto'
+            'form-search': '1fr auto',
+            post: '2fr 1fr'
+        },
+        minHeight: {
+            inherit: 'inherit'
         }
     },
   },
