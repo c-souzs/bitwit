@@ -10,7 +10,6 @@ import LayoutMain from "components/layout/Main";
 import SearchPost from "components/home/Search";
 import InfiniteScroll from "@/components/home/InfiniteScroll";
 
-
 type HomeProps = {
     tags: Tag[]
 }
@@ -26,13 +25,21 @@ function createTagsDataAnimation(tags: Tag[]): string[] {
 
 export default function Home({ tags }: HomeProps) {
     // Estruturação dos dados para a animação
-    const tagsDataAnimation = createTagsDataAnimation(tags);
+    const tagsDataAnimation = createTagsDataAnimation(tags)
 
+    // Valor do campo de busca
+    const [titleSearch, setTitleSearch] = React.useState('')
+    const changeTitleSearch = (title: string) => setTitleSearch(title)
+        
     return (
         <LayoutMain>
             <Introduction dataAnimation={tagsDataAnimation}/>
-            <SearchPost tags={tags.map(({ name }) => name)}/>
-            <InfiniteScroll />
+            <SearchPost 
+                changeTitleSearch={changeTitleSearch}
+            />
+            <InfiniteScroll 
+                titleSearch={titleSearch}
+            />
         </LayoutMain>
     )
 }

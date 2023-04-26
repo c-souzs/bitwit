@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react"
 
-import useIntersectionObserver from "hooks/useIntersectionObserver"
 import Loader from "../Loader"
+import Button from "../Button"
 
 type PaginatedViewProps = {
     children: ReactNode
@@ -12,33 +12,24 @@ type PaginatedViewProps = {
 }
 
 const InfiniteScrollContainer = ({ children, isLoading, isError, hasNextPage, onRequestToLoadMore }: PaginatedViewProps) => {
-    // Scroll infinito baseado na visibilidade de um elemento div puro
-    const scrollRef = React.useRef<HTMLDivElement>(null);
-    const intersectionObserver = useIntersectionObserver(scrollRef, {
-        root: null,
-        rootMargin: '50px',
-        threshold: 0,
-    });
-    React.useEffect(() => {
-        const shouldLoadNextPage = intersectionObserver?.isIntersecting && !isLoading && !isError && hasNextPage 
-
-        if(shouldLoadNextPage) onRequestToLoadMore()
-
-    }, [intersectionObserver?.isIntersecting, onRequestToLoadMore, isLoading])
 
     return (
         <>
             { children }
-            <div ref={scrollRef} key='scrollRef'/>
-            {
-                (!hasNextPage || isLoading) && (
-                    <div className='flex justify-center pt-10 pb-4'>
-                        {!hasNextPage && <p className='font-semibold text-emerald-600'>Todos os posts já foram carregados 😴</p>}
-                        {isError && <p className='font-semibold text-emerald-600'>Erro ao buscar posts 😞</p>}
-                        {(isLoading) && <Loader />}
-                    </div>
-                )
-            }
+            <div className='flex justify-center pt-10 pb-4'>
+                {
+                    (hasNextPage && !isLoading) && <Button onClick={() => onRequestToLoadMore()} secondary> Carregar mais </Button>
+                }
+                {
+                    !hasNextPage && <p className='text-sm font-semibold text-emerald-500'>Todos os posts foram listados</p>
+                }
+                {
+                    isLoading && <Loader />
+                }
+                {
+                    isError && <p className='text-sm font-semibold text-red-500'>Erro ao listar posts</p>
+                }
+            </div>
         </>
     )
 }

@@ -6,11 +6,15 @@ import { NextApiHandler } from "next";
 const postsPerPage = 2
 const handlerGet: NextApiHandler = async (req, res) => {
     const { query } = req
-    const { currentPage: currentPageQuery } = query 
+    const { currentPage: currentPageQuery, title } = query 
     const currentPageNumber = Number(currentPageQuery)
     
     try {
-        const { posts } = await client.request<GetPostsPaginationQuery>(GET_POSTS_PAGINATION, { postsPerPage, currentPage: (currentPageNumber * postsPerPage) - postsPerPage})
+        const { posts } = await client.request<GetPostsPaginationQuery>(GET_POSTS_PAGINATION, { 
+            postsPerPage, 
+            currentPage: currentPageNumber === 0 ? currentPageNumber : (currentPageNumber * postsPerPage) - postsPerPage,
+            title: title || ''
+        })
 
         return res.status(200).json({
             posts
