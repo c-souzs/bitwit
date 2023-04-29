@@ -22,7 +22,7 @@ const handlerGet: NextApiHandler = async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({
-            message: 'Erro interno.'
+            message: 'Erro interno ao buscar posts.'
         })
     }
 }

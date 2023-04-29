@@ -4,6 +4,12 @@ import type { AppProps } from 'next/app'
 import { Inter, Roboto, Roboto_Mono } from 'next/font/google'
 import { QueryClientProvider } from 'react-query'
 
+if(process.env.NEXT_PUBLIC_API_MOCKING === 'true') {
+    import('../mocks').then(({ setupMocks }) => {
+        setupMocks()
+    })
+}
+
 export const inter = Inter({ 
     weight: ['400', '500', '600'],
     subsets: ['latin'] 

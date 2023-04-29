@@ -6,7 +6,8 @@ export const GET_POSTS_PAGINATION = gql`
             title
             slug
             excerpt
-            tag {
+            free
+            tags {
                 name
             }
             coverImage {
@@ -44,7 +45,7 @@ export const GET_POST_BY_SLUG = gql`
                 title
             }
             title
-            tag {
+            tags {
                 name
             }
             content {
@@ -73,7 +74,7 @@ export const GET_POSTS_CONTAINS_TITLE = gql`
                 title
             }
             title
-            tag {
+            tags {
                 name
             }
             content {

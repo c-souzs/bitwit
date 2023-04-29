@@ -11,7 +11,7 @@ type ContentPostProps = {
 
 const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
     const { html } = content
-
+    
     //  Encontra a posição do início da primeira tag <p>
     const indexStartP =  html.indexOf('<p>')
     // Encontra a posição do fim da primeira tag </p> - adicionado o 4 para pegar o fechamento da tag </p> que tem 4 caracter

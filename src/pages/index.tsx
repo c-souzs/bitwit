@@ -8,7 +8,8 @@ import { GetTagsQuery, Tag } from "graphql/generated/graphql";
 import Introduction from "components/home/Introduction";
 import LayoutMain from "components/layout/Main";
 import SearchPost from "components/home/Search";
-import InfiniteScroll from "@/components/home/InfiniteScroll";
+import Paginated from "@/components/home/Paginated";
+import { PaginatedProvider } from "contexts/PaginatedCtx";
 
 type HomeProps = {
     tags: Tag[]
@@ -37,9 +38,11 @@ export default function Home({ tags }: HomeProps) {
             <SearchPost 
                 changeTitleSearch={changeTitleSearch}
             />
-            <InfiniteScroll 
-                titleSearch={titleSearch}
-            />
+            <PaginatedProvider>
+                <Paginated 
+                    titleSearch={titleSearch}
+                />
+            </PaginatedProvider>
         </LayoutMain>
     )
 }
@@ -47,7 +50,7 @@ export default function Home({ tags }: HomeProps) {
 export const getStaticProps: GetStaticProps = async () => {
 
     const { tags } = await client.request<GetTagsQuery>(GET_TAGS)
-
+    
     return {
         props: {
             tags

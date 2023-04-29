@@ -24,14 +24,15 @@ type PostProps = {
 
 
 const PostCard = ({ blur, data }: PostProps) => {
-    const { coverImage, title, tag: tags, excerpt, slug } = data
-
+    const { coverImage, title, tags, excerpt, slug, free } = data
+    
     return (
         <div 
             className={classNames('rounded overflow-hidden shadow-card-post relative group')}
-            role='listitem'>
+            role='listitem'
+            data-testid='post-card-item'>
             {
-                blur && (
+                !free && (
                     <div className='absolute top-0 left-0 right-0 bottom-0 z-10 justify-center items-center hidden group-hover:flex'>
                         <Button
                             aria-label='Clique aqui para acessar a página de planos e desbloquear o conteúdo do post.'
@@ -42,7 +43,7 @@ const PostCard = ({ blur, data }: PostProps) => {
                     </div>
                 )
             }
-            <div className={classNames({'blur-[2px]': blur})}>
+            <div className={classNames({'blur-[2px]': !free})}>
                 <figure>
                     <img 
                         src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 

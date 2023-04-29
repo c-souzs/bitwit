@@ -11,7 +11,7 @@ import ContentPost from "components/post/Content"
 import Loader from "components/ui/Loader"
 
 type PostProps = {
-    post: Pick<PostType, 'coverImage' | 'seo' | 'title' | 'tag' | 'content' | 'author' | 'createdAt'>
+    post: Pick<PostType, 'coverImage' | 'seo' | 'title' | 'tags' | 'content' | 'author' | 'createdAt'>
 }
 
 const Post = ({ post }: PostProps) => {
@@ -34,7 +34,7 @@ const Post = ({ post }: PostProps) => {
                             <>
                                 <HeaderPost 
                                     title={post.title}
-                                    tags={post.tag}
+                                    tags={post.tags}
                                     author={post.author}
                                     createdAt={post.createdAt}
                                 />
