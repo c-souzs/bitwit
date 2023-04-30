@@ -1,9 +1,10 @@
 import { Asset, Maybe, Tag } from 'graphql/generated/graphql'
 import { rest } from 'msw'
+import { postsPerPage } from 'service/queryClient'
 import { PostCardData } from 'types'
 
 // Cria posts com dados fake baseado no currentPage ou title
-const createPosts  = (currentPage: number, title?: string, amount = 2) => {
+const createPosts  = (currentPage: number, title?: string, amount = postsPerPage) => {
     const posts = [...Array(amount)].map((_, index) => {
         const mutipleTen = currentPage * 10
         const titleCreate = title || `Post create fake by currentPage ${mutipleTen + index}`
@@ -28,9 +29,9 @@ const createPosts  = (currentPage: number, title?: string, amount = 2) => {
 
 // Posts fake gerado para testar
 export const dataCurretPage01 = {
-    data: createPosts (1),
+    data: createPosts(1),
     nextPage: 2,
-    hasNextPage: true
+    hasNextPage: true,
 }
 
 export const dataCurretPage02 = {
@@ -55,7 +56,7 @@ export const dataTitleSearchEmpty = {
 }
 
 // Intercepta a função e baseado no currentPage e title retornado posts fake
-const interceptPosts = rest.get('/api/posts', (req, res, ctx) => {
+const handlerPostsGet = rest.get('/api/posts', (req, res, ctx) => {
     const currentPage = req.url.searchParams.get('currentPage') as string
     const currentPageNumber = Number(currentPage)
 
@@ -90,4 +91,4 @@ const interceptPosts = rest.get('/api/posts', (req, res, ctx) => {
 
 })
 
-export const handlersPosts = [ interceptPosts ]
+export const handlersPosts = [ handlerPostsGet ]

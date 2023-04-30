@@ -53,7 +53,7 @@ const Post = ({ post }: PostProps) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const { posts } = await client.request<GetPostsSlugQuery>(GET_POSTS_SLUG, { first: 3 })
+    const { posts } = await client.request<GetPostsSlugQuery>(GET_POSTS_SLUG, { first: 5 })
 
     const paths = posts.map(({ slug }) => ({
         params: { slug }
@@ -68,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
     const { params } = context
     const { post } = await client.request<GetPostBySlugQuery>(GET_POST_BY_SLUG, { slug: `${params?.slug}` })
-
+    
     if(!post) return { notFound: true }
 
     return {

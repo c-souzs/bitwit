@@ -1,4 +1,7 @@
+import React from "react";
 import classNames from "classnames"
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css'
 
 import { Asset, Maybe, RichText } from "graphql/generated/graphql"
 import { roboto } from "pages/_app"
@@ -9,9 +12,7 @@ type ContentPostProps = {
     content: RichText
 }
 
-const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
-    const { html } = content
-    
+const customHTMLContent = (html: string) => {
     //  Encontra a posição do início da primeira tag <p>
     const indexStartP =  html.indexOf('<p>')
     // Encontra a posição do fim da primeira tag </p> - adicionado o 4 para pegar o fechamento da tag </p> que tem 4 caracter
@@ -21,17 +22,52 @@ const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
     const startHTML = html.substring(indexStartP, indexEndP)
     const endHTML = html.substring(indexEndP)
 
+    // Caso aja alguma tag code, ele adiciona a class da estilização do prism
+    const modifiedCodeHTML = endHTML.replace(/<code>/g, '<code class="language-js">')
+
+    // Caso aja a tag pre ele exibie as linhas do código
+    const moifiedPreHTML = modifiedCodeHTML.replace(/<pre>/g, '<pre class="line-numbers">')
+
+    // Cajo aja alhum link ele aplica a estilização
+    const modifiedLinkHTML = moifiedPreHTML.replace(/<a([^>]+)>/g, '<a$1 class="text-emerald-500 transition-colors hover:text-emerald-600">');
+
+    return {
+        startHTML,
+        endModifiedHTML: modifiedLinkHTML
+    }
+}
+
+const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
+    const { html } = content
+    const { startHTML, endModifiedHTML } = customHTMLContent(html)
+
+    const [isMount, setIsMount] = React.useState(false)
+    const contentRef = React.useRef<HTMLDivElement>(null)
+
+    React.useEffect(() => {
+        setIsMount(true)
+    }, [])
+
+    React.useEffect(() => {
+        if(typeof window != 'undefined' && contentRef.current){
+            Prism.highlightAllUnder(contentRef.current);  
+        }
+    }, [isMount]);
+
     return (
         <>
-            <div className='grid grid-cols-1 gap-8 md:grid-cols-post'>
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-post'>
                 <figure>
                     <img src={coverImage?.url} alt={title} className='w-full h-full rounded object-cover'/>
                 </figure>
-                <div dangerouslySetInnerHTML={{__html: startHTML}}/>
+                { isMount && <div dangerouslySetInnerHTML={{__html: startHTML}}/>}
             </div>
-            <div 
-                dangerouslySetInnerHTML={{__html: endHTML}}
-                className={classNames('flex flex-col gap-8 mt-8', roboto.className)} />
+            { isMount && 
+                <div 
+                    ref={contentRef}
+                    dangerouslySetInnerHTML={{__html: endModifiedHTML}}
+                    className={classNames('flex flex-col gap-6 mt-6', roboto.className)} />
+            }
         </>
     )
 }

@@ -61,33 +61,3 @@ export const GET_POST_BY_SLUG = gql`
         }
     }
 `
-
-export const GET_POSTS_CONTAINS_TITLE = gql`
-    query getPostsContainsTitle($contains: String) {
-        posts(where: { title_contains: $contains }) {
-            coverImage {
-                url
-            }
-            seo {
-                description
-                keywords
-                title
-            }
-            title
-            tags {
-                name
-            }
-            content {
-                html
-            }
-            author {
-                name
-                picture {
-                    url
-                }
-            }
-            createdAt
-            slug
-        }
-    }
-`

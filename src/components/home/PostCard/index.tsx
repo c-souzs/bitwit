@@ -18,12 +18,11 @@ const Lock = () => (
 )
 
 type PostProps = {
-    blur?: boolean;
     data: PostCardData
 }
 
 
-const PostCard = ({ blur, data }: PostProps) => {
+const PostCard = ({ data }: PostProps) => {
     const { coverImage, title, tags, excerpt, slug, free } = data
     
     return (
@@ -43,34 +42,37 @@ const PostCard = ({ blur, data }: PostProps) => {
                     </div>
                 )
             }
-            <div className={classNames({'blur-[2px]': !free})}>
-                <figure>
-                    <img 
-                        src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 
-                        alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}  
-                        aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
-                        className='w-full block object-cover'/>
-                </figure>
-                <div className='p-3'>
-                    <h3 className='flex items-center gap-2 text-emerald-500 text-xl font-medium mb-2 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>{ title }</h3>
-                    {
-                        <div className='flex flex-wrap gap-4 mb-2'>
-                            {
-                                tags.map(({ name }) => <span key={`tag-${name}`} className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full px-3 py-1'>{name}</span>)
-                            }
-                        </div>
-                    }
-                    <p className={`${roboto.className} mb-5`}>{ excerpt }</p>
-                    {!blur && (
-                        <LinkWrapper 
-                            href={`/post/${slug}`}
-                            aria-label='Vai para a página de leitura do post.'
-                            >
-                                Acessar 
-                                <ArrowLeft />
-                        </LinkWrapper>
-                    )}
+            <div className={classNames('h-full flex flex-col justify-between', {'blur-[2px]': !free})}>
+                <div>
+                    <figure>
+                        <img 
+                            src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 
+                            alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}  
+                            aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
+                            className='w-full block object-cover'/>
+                    </figure>
+                    <div className='p-3'>
+                        <h3 className='flex items-center gap-2 text-emerald-500 text-xl font-medium mb-3 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>{ title }</h3>
+                        {
+                            <div className='flex flex-wrap gap-4 mb-3'>
+                                {
+                                    tags.map(({ name }) => <span key={`tag-${name}`} className='text-xs uppercase text-emerald-500 border border-emerald-500 rounded-full px-3 py-1'>{name}</span>)
+                                }
+                            </div>
+                        }
+                        <p className={`${roboto.className} mb-5`}>{ excerpt }</p>
+                    </div>
                 </div>
+                {!false && (
+                        <div className='p-3'>
+                            <LinkWrapper 
+                                href={`/post/${slug}`}
+                                aria-label='Vai para a página de leitura do post.' >
+                                    Acessar 
+                                    <ArrowLeft />
+                            </LinkWrapper>
+                        </div>
+                    )}
             </div>
         </div>
     )

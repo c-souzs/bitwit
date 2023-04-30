@@ -2,8 +2,8 @@ import client from "graphql/client";
 import { GetPostsPaginationQuery } from "graphql/generated/graphql";
 import { GET_POSTS_PAGINATION } from "graphql/queries";
 import { NextApiHandler } from "next";
+import { postsPerPage } from 'service/queryClient'
 
-const postsPerPage = 2
 const handlerGet: NextApiHandler = async (req, res) => {
     const { query } = req
     const { currentPage: currentPageQuery, title } = query 
