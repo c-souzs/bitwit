@@ -27,7 +27,7 @@ const PostCard = ({ data }: PostProps) => {
     
     return (
         <div 
-            className={classNames('rounded overflow-hidden shadow-card-post relative group')}
+            className={classNames('rounded overflow-hidden shadow-div relative group')}
             role='listitem'
             data-testid='post-card-item'>
             {

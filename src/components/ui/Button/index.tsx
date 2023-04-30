@@ -11,8 +11,10 @@ const Button = ({ children, small, secondary, type = 'button', ...rest }: IButto
     if(secondary) {
         return (
             <button
-                className={classNames('flex justify-between items-center gap-2 text-emerald-500 font-medium border border-emerald-500 py-2 px-6 rounded-full transition-colors hover:bg-emerald-600 hover:border-emerald-600 hover:text-white',
-                {'text-sm': small})}
+                className={classNames(
+                    'flex items-center gap-2 text-emerald-500 font-medium border border-emerald-500 py-2 px-6 rounded-full transition-colors hover:bg-emerald-600 hover:border-emerald-600 hover:text-white',
+                    {'text-sm': small})
+                }
                 role='button'
                 type={type}
                 {...rest}

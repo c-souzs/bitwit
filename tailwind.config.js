@@ -13,7 +13,8 @@ module.exports = {
             }
         },
         boxShadow: {
-            'card-post': '0px 2px 4px rgba(0, 0, 0, 0.25);'
+            div: '0px 2px 4px rgba(0, 0, 0, 0.25);',
+            input: '0 0 0 3px #D0F0ED'
         },
         keyframes: {
             'mouse': {

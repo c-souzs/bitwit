@@ -13,7 +13,11 @@ const LayoutMain = ({ children, footer }: LayoutMainProps) => {
     return (
         <>  
             <Header />
-            <main className={classNames('bg-glacial-emerald-50 pb-14', inter.className, {'min-h-[calc(100vh-216px)]': footer}, {'min-h-[calc(100vh-80px)]': !footer})}>
+            <main className={classNames(
+                'bg-glacial-emerald-50 flex flex-col items-center justify-center', 
+                {'min-h-[calc(100vh-80px)]': !footer},
+                {'min-h-[calc(100vh-160px)]': footer},
+                inter.className)}>
                 {children}
             </main>
             {footer && <Footer />}

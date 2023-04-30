@@ -19,11 +19,11 @@ const Post = ({ post }: PostProps) => {
 
     return (
         <LayoutMain footer>
-            <section className='min-h-inherit'>
-                <div className='max-w-6xl min-h-inherit w-full mx-auto px-5'>
+            <article>
+                <div className='max-w-6xl h-full w-full mx-auto px-5'>
                     {
                         router.isFallback && (
-                            <div className='min-h-inherit flex flex-col items-center justify-center'>
+                            <div className='flex flex-col items-center justify-center gap-2'>
                                 <Loader />
                                 <p className='font-semibold text-emerald-600'>Carregando ...</p>
                             </div>
@@ -47,7 +47,7 @@ const Post = ({ post }: PostProps) => {
                         )
                     }
                 </div>
-            </section>
+            </article>
         </LayoutMain>
     )
 }

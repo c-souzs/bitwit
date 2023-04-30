@@ -12,7 +12,7 @@ const PaginatedView = ({ children }: PaginatedViewProps) => {
     const { hasNextPage, isLoading, isData,  onRequestToLoadMore } = React.useContext(PaginatedCtx)
 
     return (
-        <>
+        <div className='pb-14'>
             { children }
             <div className='flex justify-center pt-10 pb-4'>
                 {
@@ -28,7 +28,7 @@ const PaginatedView = ({ children }: PaginatedViewProps) => {
                     isLoading && <Loader />
                 }
             </div>
-        </>
+        </div>
     )
 }
 

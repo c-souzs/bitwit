@@ -55,7 +55,7 @@ const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
     }, [isMount]);
 
     return (
-        <>
+        <section className='pb-14'>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-post'>
                 <figure>
                     <img src={coverImage?.url} alt={title} className='w-full h-full rounded object-cover'/>
@@ -66,9 +66,9 @@ const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
                 <div 
                     ref={contentRef}
                     dangerouslySetInnerHTML={{__html: endModifiedHTML}}
-                    className={classNames('flex flex-col gap-6 mt-6', roboto.className)} />
+                    className={classNames('flex flex-col gap-4 mt-4', roboto.className)} />
             }
-        </>
+        </section>
     )
 }
 

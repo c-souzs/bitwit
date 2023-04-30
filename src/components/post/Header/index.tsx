@@ -15,8 +15,8 @@ const HeaderPost = ({ title, tags, author, createdAt }: HeaderPostProps) => {
     const formattedDate = new Intl.DateTimeFormat('pt-BR').format(new Date(isoDate));
 
     return (
-        <div className='pt-14 mb-14'>
-            <h1 className='text-4xl font-semibold text-emerald-500 mb-3'>{ title }</h1>
+        <section className='pt-14 mb-12'>
+            <h1 className='text-4xl font-semibold text-emerald-500 mb-6'>{ title }</h1>
             <div className={classNames('flex flex-wrap gap-3 justify-between items-center ', roboto.className)}>
                 <div className='flex flex-wrap gap-4'>
                     {
@@ -31,7 +31,7 @@ const HeaderPost = ({ title, tags, author, createdAt }: HeaderPostProps) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
