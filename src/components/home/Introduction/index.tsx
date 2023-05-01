@@ -1,10 +1,11 @@
-import React from "react";
-import { roboto, robotoMono } from "pages/_app";
+import React from "react"
+import { roboto, robotoMono } from "pages/_app"
 
-import classNames from "classnames";
+import classNames from "classnames"
 
-import Button from "components/ui/Button";
-import useTyping from "hooks/useTyping";
+import Button from "components/ui/Button"
+import useTyping from "hooks/useTyping"
+import PaymentButton from "../PaymentButton"
 
 type IntroductionProps = {
     dataAnimation: string[]
@@ -53,16 +54,14 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
                         </span>
                     </h1>
                     <p className={classNames('uppercase text-sm text-emerald-500 mb-3 after:content-["|"] after:ml-1 after:font-semibold after:animate-blink', robotoMono.className)}> 
-                        &nbsp; { text }
+                        &nbsp { text }
                     </p>
                     <p className={`${roboto.className} text-lg mb-5 max-w-[550px]`}> 
                         Encontre tudo sobre front-end e back-end. Faça qualquer pergunta. Entre para a melhor comunidade. Tudo isso com um preço acessível que cabe no seu bolso. 
                     </p>
-                    <Button
-                        aria-label='Vai para a página de planos de acesso do blog.'
-                    >
+                    <PaymentButton>
                         INSCREVA-SE
-                    </Button>
+                    </PaymentButton>
                 </div>
             </div>
             <AlertScroll />
@@ -70,4 +69,4 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
     )
 }
 
-export default Introduction;
+export default Introduction

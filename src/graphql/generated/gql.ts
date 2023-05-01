@@ -17,7 +17,10 @@ const documents = {
     "\n    query getTags {\n        tags {\n            name\n        }\n    }\n": types.GetTagsDocument,
     "\n    query getPostsSlug($first: Int) {\n        posts(first: $first) {\n            slug\n        }\n    }\n": types.GetPostsSlugDocument,
     "\n    query getPostBySlug($slug: String) {\n        post(where: { slug: $slug }) {\n            coverImage {\n                url\n            }\n            seo {\n                description\n                keywords\n                title\n            }\n            title\n            tags {\n                name\n            }\n            content {\n                html\n            }\n            author {\n                name\n                picture {\n                    url\n                }\n            }\n            createdAt\n        }\n    }\n": types.GetPostBySlugDocument,
-    "\n    query getPostsContainsTitle($contains: String) {\n        posts(where: { title_contains: $contains }) {\n            coverImage {\n                url\n            }\n            seo {\n                description\n                keywords\n                title\n            }\n            title\n            tags {\n                name\n            }\n            content {\n                html\n            }\n            author {\n                name\n                picture {\n                    url\n                }\n            }\n            createdAt\n            slug\n        }\n    }\n": types.GetPostsContainsTitleDocument,
+    "\n    query getPaymentByIdTransaction($idTransaction: String) {\n        payment(where: {idTransaction: $idTransaction}) {\n            idTransaction\n            statusTransaction\n        }\n    }\n": types.GetPaymentByIdTransactionDocument,
+    "\n    mutation postCreatePayment($idPayment: String!) {\n        createPayment(data: { idTransaction: $idPayment, statusTransaction: false }) {\n            id\n            idTransaction\n        }\n    }\n": types.PostCreatePaymentDocument,
+    "\n    mutation updatePaymentStatus($idPayment: String){\n        updatePayment(where: {idTransaction: $idPayment}, data: {statusTransaction: true}) {\n            id\n        }\n    }\n": types.UpdatePaymentStatusDocument,
+    "\n    mutation postPublishedPayment($id: ID){\n        publishPayment(where: {id: $id}) {\n            id\n        }\n    }\n": types.PostPublishedPaymentDocument,
 };
 
 /**
@@ -53,7 +56,19 @@ export function graphql(source: "\n    query getPostBySlug($slug: String) {\n   
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query getPostsContainsTitle($contains: String) {\n        posts(where: { title_contains: $contains }) {\n            coverImage {\n                url\n            }\n            seo {\n                description\n                keywords\n                title\n            }\n            title\n            tags {\n                name\n            }\n            content {\n                html\n            }\n            author {\n                name\n                picture {\n                    url\n                }\n            }\n            createdAt\n            slug\n        }\n    }\n"): (typeof documents)["\n    query getPostsContainsTitle($contains: String) {\n        posts(where: { title_contains: $contains }) {\n            coverImage {\n                url\n            }\n            seo {\n                description\n                keywords\n                title\n            }\n            title\n            tags {\n                name\n            }\n            content {\n                html\n            }\n            author {\n                name\n                picture {\n                    url\n                }\n            }\n            createdAt\n            slug\n        }\n    }\n"];
+export function graphql(source: "\n    query getPaymentByIdTransaction($idTransaction: String) {\n        payment(where: {idTransaction: $idTransaction}) {\n            idTransaction\n            statusTransaction\n        }\n    }\n"): (typeof documents)["\n    query getPaymentByIdTransaction($idTransaction: String) {\n        payment(where: {idTransaction: $idTransaction}) {\n            idTransaction\n            statusTransaction\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    mutation postCreatePayment($idPayment: String!) {\n        createPayment(data: { idTransaction: $idPayment, statusTransaction: false }) {\n            id\n            idTransaction\n        }\n    }\n"): (typeof documents)["\n    mutation postCreatePayment($idPayment: String!) {\n        createPayment(data: { idTransaction: $idPayment, statusTransaction: false }) {\n            id\n            idTransaction\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    mutation updatePaymentStatus($idPayment: String){\n        updatePayment(where: {idTransaction: $idPayment}, data: {statusTransaction: true}) {\n            id\n        }\n    }\n"): (typeof documents)["\n    mutation updatePaymentStatus($idPayment: String){\n        updatePayment(where: {idTransaction: $idPayment}, data: {statusTransaction: true}) {\n            id\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    mutation postPublishedPayment($id: ID){\n        publishPayment(where: {id: $id}) {\n            id\n        }\n    }\n"): (typeof documents)["\n    mutation postPublishedPayment($id: ID){\n        publishPayment(where: {id: $id}) {\n            id\n        }\n    }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -1,9 +1,9 @@
-import classNames from "classnames";
-import { roboto } from "pages/_app";
+import classNames from "classnames"
+import { roboto } from "pages/_app"
 
-import { PostCardData } from "types";
-import Button from "components/ui/Button";
-import LinkWrapper from "@/components/ui/Link";
+import { PostCardData } from "types"
+import LinkWrapper from "@/components/ui/Link"
+import PaymentButton from "../PaymentButton"
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" aria-label="Ícone de seta para a direita, indicando que vai para outra página." xmlns="http://www.w3.org/2000/svg">
@@ -33,12 +33,12 @@ const PostCard = ({ data }: PostProps) => {
             {
                 !free && (
                     <div className='absolute top-0 left-0 right-0 bottom-0 z-10 justify-center items-center hidden group-hover:flex'>
-                        <Button
+                        <PaymentButton
                             aria-label='Clique aqui para acessar a página de planos e desbloquear o conteúdo do post.'
                         >
                             Desbloquear
-                            <Lock />
-                        </Button>
+                            <Lock />   
+                        </PaymentButton>
                     </div>
                 )
             }
@@ -78,4 +78,4 @@ const PostCard = ({ data }: PostProps) => {
     )
 }
 
-export default PostCard;
+export default PostCard

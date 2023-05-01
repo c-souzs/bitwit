@@ -61,3 +61,37 @@ export const GET_POST_BY_SLUG = gql`
         }
     }
 `
+
+export const GET_PAYMENT_BY_ID_TRANSACTION = gql`
+    query getPaymentByIdTransaction($idTransaction: String) {
+        payment(where: {idTransaction: $idTransaction}) {
+            idTransaction
+            statusTransaction
+        }
+    }
+`
+
+export const MUTATION_CREATE_PAYMENT = gql`
+    mutation postCreatePayment($idPayment: String!) {
+        createPayment(data: { idTransaction: $idPayment, statusTransaction: false }) {
+            id
+            idTransaction
+        }
+    }
+`
+
+export const MUTATION_UPDATE_PAYMENT = gql`
+    mutation updatePaymentStatus($idPayment: String){
+        updatePayment(where: {idTransaction: $idPayment}, data: {statusTransaction: true}) {
+            id
+        }
+    }
+`
+
+export const MUTATION_PUBLISHED_PAYMENT = gql`
+    mutation postPublishedPayment($id: ID){
+        publishPayment(where: {id: $id}) {
+            id
+        }
+    }
+`

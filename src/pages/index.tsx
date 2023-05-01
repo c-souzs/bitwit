@@ -1,15 +1,19 @@
-import React from "react";
-import { GetStaticProps } from "next";
+import React from "react"
 
-import client from "graphql/client";
-import { GET_TAGS } from "graphql/queries";
-import { GetTagsQuery, Tag } from "graphql/generated/graphql";
+import { GetStaticProps } from "next"
+import { useRouter } from "next/router"
 
-import Introduction from "components/home/Introduction";
-import LayoutMain from "components/layout/Main";
-import SearchPost from "components/home/Search";
-import Paginated from "@/components/home/Paginated";
-import { PaginatedProvider } from "contexts/PaginatedCtx";
+import Cookies from "js-cookie"
+
+import client from "graphql/client"
+import { GET_TAGS } from "graphql/queries"
+import { GetTagsQuery, Tag } from "graphql/generated/graphql"
+
+import { PaginatedProvider } from "contexts/PaginatedCtx"
+import Introduction from "components/home/Introduction"
+import LayoutMain from "components/layout/Main"
+import SearchPost from "components/home/Search"
+import Paginated from "@/components/home/Paginated"
 
 type HomeProps = {
     tags: Tag[]
@@ -28,10 +32,19 @@ export default function Home({ tags }: HomeProps) {
     // Estruturação dos dados para a animação
     const tagsDataAnimation = createTagsDataAnimation(tags)
 
+    
     // Valor do campo de busca
     const [titleSearch, setTitleSearch] = React.useState('')
     const changeTitleSearch = (title: string) => setTitleSearch(title)
-        
+
+    const router = useRouter()
+
+    React.useEffect(() => {
+        const cookieTransaction = Cookies.get('idTransaction')
+
+        if(cookieTransaction) router.push('/register')
+    }, [])  
+
     return (
         <LayoutMain>
             <Introduction dataAnimation={tagsDataAnimation}/>

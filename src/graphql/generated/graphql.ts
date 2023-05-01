@@ -760,8 +760,6 @@ export type AssetWhereUniqueInput = {
 
 export type Author = Node & {
   __typename?: 'Author';
-  /** Enter a short bio about yourself, or other authors. */
-  biography?: Maybe<Scalars['String']>;
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
   /** User that created this document */
@@ -778,6 +776,7 @@ export type Author = Node & {
   name: Scalars['String'];
   /** Password to authentication */
   password: Scalars['String'];
+  paymentState?: Maybe<Scalars['Boolean']>;
   /** Add a profile picture for authors */
   picture?: Maybe<Asset>;
   /** Connect blog posts to this author */
@@ -878,11 +877,11 @@ export type AuthorConnection = {
 };
 
 export type AuthorCreateInput = {
-  biography?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
+  paymentState?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetCreateOneInlineInput>;
   posts?: InputMaybe<PostCreateManyInlineInput>;
   title?: InputMaybe<Scalars['String']>;
@@ -922,25 +921,6 @@ export type AuthorManyWhereInput = {
   OR?: InputMaybe<Array<AuthorWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  biography?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  biography_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  biography_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  biography_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  biography_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  biography_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  biography_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  biography_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  biography_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  biography_starts_with?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1036,6 +1016,9 @@ export type AuthorManyWhereInput = {
   password_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   password_starts_with?: InputMaybe<Scalars['String']>;
+  paymentState?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  paymentState_not?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetWhereInput>;
   posts_every?: InputMaybe<PostWhereInput>;
   posts_none?: InputMaybe<PostWhereInput>;
@@ -1097,8 +1080,6 @@ export type AuthorManyWhereInput = {
 };
 
 export enum AuthorOrderByInput {
-  BiographyAsc = 'biography_ASC',
-  BiographyDesc = 'biography_DESC',
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
   EmailAsc = 'email_ASC',
@@ -1109,6 +1090,8 @@ export enum AuthorOrderByInput {
   NameDesc = 'name_DESC',
   PasswordAsc = 'password_ASC',
   PasswordDesc = 'password_DESC',
+  PaymentStateAsc = 'paymentState_ASC',
+  PaymentStateDesc = 'paymentState_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   TitleAsc = 'title_ASC',
@@ -1118,10 +1101,10 @@ export enum AuthorOrderByInput {
 }
 
 export type AuthorUpdateInput = {
-  biography?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  paymentState?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetUpdateOneInlineInput>;
   posts?: InputMaybe<PostUpdateManyInlineInput>;
   title?: InputMaybe<Scalars['String']>;
@@ -1145,9 +1128,9 @@ export type AuthorUpdateManyInlineInput = {
 };
 
 export type AuthorUpdateManyInput = {
-  biography?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  paymentState?: InputMaybe<Scalars['Boolean']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -1210,25 +1193,6 @@ export type AuthorWhereInput = {
   OR?: InputMaybe<Array<AuthorWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
-  biography?: InputMaybe<Scalars['String']>;
-  /** All values containing the given string. */
-  biography_contains?: InputMaybe<Scalars['String']>;
-  /** All values ending with the given string. */
-  biography_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are contained in given list. */
-  biography_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** Any other value that exists and is not equal to the given value. */
-  biography_not?: InputMaybe<Scalars['String']>;
-  /** All values not containing the given string. */
-  biography_not_contains?: InputMaybe<Scalars['String']>;
-  /** All values not ending with the given string */
-  biography_not_ends_with?: InputMaybe<Scalars['String']>;
-  /** All values that are not contained in given list. */
-  biography_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** All values not starting with the given string. */
-  biography_not_starts_with?: InputMaybe<Scalars['String']>;
-  /** All values starting with the given string. */
-  biography_starts_with?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   createdAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -1324,6 +1288,9 @@ export type AuthorWhereInput = {
   password_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   password_starts_with?: InputMaybe<Scalars['String']>;
+  paymentState?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  paymentState_not?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetWhereInput>;
   posts_every?: InputMaybe<PostWhereInput>;
   posts_none?: InputMaybe<PostWhereInput>;
@@ -1562,6 +1529,8 @@ export type Mutation = {
   createAuthor?: Maybe<Author>;
   /** Create one page */
   createPage?: Maybe<Page>;
+  /** Create one payment */
+  createPayment?: Maybe<Payment>;
   /** Create one post */
   createPost?: Maybe<Post>;
   /** Create one scheduledRelease */
@@ -1596,6 +1565,13 @@ export type Mutation = {
   /** Delete many Page documents, return deleted documents */
   deleteManyPagesConnection: PageConnection;
   /**
+   * Delete many Payment documents
+   * @deprecated Please use the new paginated many mutation (deleteManyPaymentsConnection)
+   */
+  deleteManyPayments: BatchPayload;
+  /** Delete many Payment documents, return deleted documents */
+  deleteManyPaymentsConnection: PaymentConnection;
+  /**
    * Delete many Post documents
    * @deprecated Please use the new paginated many mutation (deleteManyPostsConnection)
    */
@@ -1618,6 +1594,8 @@ export type Mutation = {
   deleteManyTagsConnection: TagConnection;
   /** Delete one page from _all_ existing stages. Returns deleted document. */
   deletePage?: Maybe<Page>;
+  /** Delete one payment from _all_ existing stages. Returns deleted document. */
+  deletePayment?: Maybe<Payment>;
   /** Delete one post from _all_ existing stages. Returns deleted document. */
   deletePost?: Maybe<Post>;
   /** Delete and return scheduled operation */
@@ -1654,6 +1632,13 @@ export type Mutation = {
   /** Publish many Page documents */
   publishManyPagesConnection: PageConnection;
   /**
+   * Publish many Payment documents
+   * @deprecated Please use the new paginated many mutation (publishManyPaymentsConnection)
+   */
+  publishManyPayments: BatchPayload;
+  /** Publish many Payment documents */
+  publishManyPaymentsConnection: PaymentConnection;
+  /**
    * Publish many Post documents
    * @deprecated Please use the new paginated many mutation (publishManyPostsConnection)
    */
@@ -1676,6 +1661,8 @@ export type Mutation = {
   publishManyTagsConnection: TagConnection;
   /** Publish one page */
   publishPage?: Maybe<Page>;
+  /** Publish one payment */
+  publishPayment?: Maybe<Payment>;
   /** Publish one post */
   publishPost?: Maybe<Post>;
   /** Publish one seo */
@@ -1688,6 +1675,8 @@ export type Mutation = {
   schedulePublishAuthor?: Maybe<Author>;
   /** Schedule to publish one page */
   schedulePublishPage?: Maybe<Page>;
+  /** Schedule to publish one payment */
+  schedulePublishPayment?: Maybe<Payment>;
   /** Schedule to publish one post */
   schedulePublishPost?: Maybe<Post>;
   /** Schedule to publish one seo */
@@ -1700,6 +1689,8 @@ export type Mutation = {
   scheduleUnpublishAuthor?: Maybe<Author>;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishPage?: Maybe<Page>;
+  /** Unpublish one payment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishPayment?: Maybe<Payment>;
   /** Unpublish one post from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishPost?: Maybe<Post>;
   /** Unpublish one seo from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1732,6 +1723,13 @@ export type Mutation = {
   /** Find many Page documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyPagesConnection: PageConnection;
   /**
+   * Unpublish many Payment documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyPaymentsConnection)
+   */
+  unpublishManyPayments: BatchPayload;
+  /** Find many Payment documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyPaymentsConnection: PaymentConnection;
+  /**
    * Unpublish many Post documents
    * @deprecated Please use the new paginated many mutation (unpublishManyPostsConnection)
    */
@@ -1754,6 +1752,8 @@ export type Mutation = {
   unpublishManyTagsConnection: TagConnection;
   /** Unpublish one page from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPage?: Maybe<Page>;
+  /** Unpublish one payment from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishPayment?: Maybe<Payment>;
   /** Unpublish one post from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPost?: Maybe<Post>;
   /** Unpublish one seo from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1786,6 +1786,13 @@ export type Mutation = {
   /** Update many Page documents */
   updateManyPagesConnection: PageConnection;
   /**
+   * Update many payments
+   * @deprecated Please use the new paginated many mutation (updateManyPaymentsConnection)
+   */
+  updateManyPayments: BatchPayload;
+  /** Update many Payment documents */
+  updateManyPaymentsConnection: PaymentConnection;
+  /**
    * Update many posts
    * @deprecated Please use the new paginated many mutation (updateManyPostsConnection)
    */
@@ -1808,6 +1815,8 @@ export type Mutation = {
   updateManyTagsConnection: TagConnection;
   /** Update one page */
   updatePage?: Maybe<Page>;
+  /** Update one payment */
+  updatePayment?: Maybe<Payment>;
   /** Update one post */
   updatePost?: Maybe<Post>;
   /** Update one scheduledRelease */
@@ -1822,6 +1831,8 @@ export type Mutation = {
   upsertAuthor?: Maybe<Author>;
   /** Upsert one page */
   upsertPage?: Maybe<Page>;
+  /** Upsert one payment */
+  upsertPayment?: Maybe<Payment>;
   /** Upsert one post */
   upsertPost?: Maybe<Post>;
   /** Upsert one seo */
@@ -1843,6 +1854,11 @@ export type MutationCreateAuthorArgs = {
 
 export type MutationCreatePageArgs = {
   data: PageCreateInput;
+};
+
+
+export type MutationCreatePaymentArgs = {
+  data: PaymentCreateInput;
 };
 
 
@@ -1921,6 +1937,21 @@ export type MutationDeleteManyPagesConnectionArgs = {
 };
 
 
+export type MutationDeleteManyPaymentsArgs = {
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
+export type MutationDeleteManyPaymentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
 export type MutationDeleteManyPostsArgs = {
   where?: InputMaybe<PostManyWhereInput>;
 };
@@ -1968,6 +1999,11 @@ export type MutationDeleteManyTagsConnectionArgs = {
 
 export type MutationDeletePageArgs = {
   where: PageWhereUniqueInput;
+};
+
+
+export type MutationDeletePaymentArgs = {
+  where: PaymentWhereUniqueInput;
 };
 
 
@@ -2071,6 +2107,24 @@ export type MutationPublishManyPagesConnectionArgs = {
 };
 
 
+export type MutationPublishManyPaymentsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
+export type MutationPublishManyPaymentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
 export type MutationPublishManyPostsArgs = {
   to?: Array<Stage>;
   where?: InputMaybe<PostManyWhereInput>;
@@ -2131,6 +2185,12 @@ export type MutationPublishPageArgs = {
 };
 
 
+export type MutationPublishPaymentArgs = {
+  to?: Array<Stage>;
+  where: PaymentWhereUniqueInput;
+};
+
+
 export type MutationPublishPostArgs = {
   to?: Array<Stage>;
   where: PostWhereUniqueInput;
@@ -2173,6 +2233,14 @@ export type MutationSchedulePublishPageArgs = {
   releaseId?: InputMaybe<Scalars['String']>;
   to?: Array<Stage>;
   where: PageWhereUniqueInput;
+};
+
+
+export type MutationSchedulePublishPaymentArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: PaymentWhereUniqueInput;
 };
 
 
@@ -2223,6 +2291,14 @@ export type MutationScheduleUnpublishPageArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: PageWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishPaymentArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: PaymentWhereUniqueInput;
 };
 
 
@@ -2322,6 +2398,24 @@ export type MutationUnpublishManyPagesConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyPaymentsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyPaymentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
 export type MutationUnpublishManyPostsArgs = {
   from?: Array<Stage>;
   where?: InputMaybe<PostManyWhereInput>;
@@ -2379,6 +2473,12 @@ export type MutationUnpublishManyTagsConnectionArgs = {
 export type MutationUnpublishPageArgs = {
   from?: Array<Stage>;
   where: PageWhereUniqueInput;
+};
+
+
+export type MutationUnpublishPaymentArgs = {
+  from?: Array<Stage>;
+  where: PaymentWhereUniqueInput;
 };
 
 
@@ -2463,6 +2563,23 @@ export type MutationUpdateManyPagesConnectionArgs = {
 };
 
 
+export type MutationUpdateManyPaymentsArgs = {
+  data: PaymentUpdateManyInput;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
+export type MutationUpdateManyPaymentsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: PaymentUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PaymentManyWhereInput>;
+};
+
+
 export type MutationUpdateManyPostsArgs = {
   data: PostUpdateManyInput;
   where?: InputMaybe<PostManyWhereInput>;
@@ -2520,6 +2637,12 @@ export type MutationUpdatePageArgs = {
 };
 
 
+export type MutationUpdatePaymentArgs = {
+  data: PaymentUpdateInput;
+  where: PaymentWhereUniqueInput;
+};
+
+
 export type MutationUpdatePostArgs = {
   data: PostUpdateInput;
   where: PostWhereUniqueInput;
@@ -2559,6 +2682,12 @@ export type MutationUpsertAuthorArgs = {
 export type MutationUpsertPageArgs = {
   upsert: PageUpsertInput;
   where: PageWhereUniqueInput;
+};
+
+
+export type MutationUpsertPaymentArgs = {
+  upsert: PaymentUpsertInput;
+  where: PaymentWhereUniqueInput;
 };
 
 
@@ -3138,6 +3267,456 @@ export type PageWhereStageInput = {
 export type PageWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
   slug?: InputMaybe<Scalars['String']>;
+};
+
+/** Control status payments */
+export type Payment = Node & {
+  __typename?: 'Payment';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Payment>;
+  /** List of Payment versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** Id transaction stripe */
+  idTransaction: Scalars['String'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  statusTransaction: Scalars['Boolean'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+/** Control status payments */
+export type PaymentCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Control status payments */
+export type PaymentDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+/** Control status payments */
+export type PaymentHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** Control status payments */
+export type PaymentPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+/** Control status payments */
+export type PaymentScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+/** Control status payments */
+export type PaymentUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type PaymentConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: PaymentWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type PaymentConnection = {
+  __typename?: 'PaymentConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<PaymentEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type PaymentCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  idTransaction: Scalars['String'];
+  statusTransaction: Scalars['Boolean'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type PaymentCreateManyInlineInput = {
+  /** Connect multiple existing Payment documents */
+  connect?: InputMaybe<Array<PaymentWhereUniqueInput>>;
+  /** Create and connect multiple existing Payment documents */
+  create?: InputMaybe<Array<PaymentCreateInput>>;
+};
+
+export type PaymentCreateOneInlineInput = {
+  /** Connect one existing Payment document */
+  connect?: InputMaybe<PaymentWhereUniqueInput>;
+  /** Create and connect one Payment document */
+  create?: InputMaybe<PaymentCreateInput>;
+};
+
+/** An edge in a connection. */
+export type PaymentEdge = {
+  __typename?: 'PaymentEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Payment;
+};
+
+/** Identifies documents */
+export type PaymentManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<PaymentWhereStageInput>;
+  documentInStages_none?: InputMaybe<PaymentWhereStageInput>;
+  documentInStages_some?: InputMaybe<PaymentWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  idTransaction?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  idTransaction_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  idTransaction_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  idTransaction_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  idTransaction_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  idTransaction_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  idTransaction_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  idTransaction_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  idTransaction_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  idTransaction_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  statusTransaction?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  statusTransaction_not?: InputMaybe<Scalars['Boolean']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum PaymentOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdTransactionAsc = 'idTransaction_ASC',
+  IdTransactionDesc = 'idTransaction_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  StatusTransactionAsc = 'statusTransaction_ASC',
+  StatusTransactionDesc = 'statusTransaction_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export type PaymentUpdateInput = {
+  idTransaction?: InputMaybe<Scalars['String']>;
+  statusTransaction?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type PaymentUpdateManyInlineInput = {
+  /** Connect multiple existing Payment documents */
+  connect?: InputMaybe<Array<PaymentConnectInput>>;
+  /** Create and connect multiple Payment documents */
+  create?: InputMaybe<Array<PaymentCreateInput>>;
+  /** Delete multiple Payment documents */
+  delete?: InputMaybe<Array<PaymentWhereUniqueInput>>;
+  /** Disconnect multiple Payment documents */
+  disconnect?: InputMaybe<Array<PaymentWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Payment documents */
+  set?: InputMaybe<Array<PaymentWhereUniqueInput>>;
+  /** Update multiple Payment documents */
+  update?: InputMaybe<Array<PaymentUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Payment documents */
+  upsert?: InputMaybe<Array<PaymentUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type PaymentUpdateManyInput = {
+  statusTransaction?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type PaymentUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: PaymentUpdateManyInput;
+  /** Document search */
+  where: PaymentWhereInput;
+};
+
+export type PaymentUpdateOneInlineInput = {
+  /** Connect existing Payment document */
+  connect?: InputMaybe<PaymentWhereUniqueInput>;
+  /** Create and connect one Payment document */
+  create?: InputMaybe<PaymentCreateInput>;
+  /** Delete currently connected Payment document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Payment document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Payment document */
+  update?: InputMaybe<PaymentUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Payment document */
+  upsert?: InputMaybe<PaymentUpsertWithNestedWhereUniqueInput>;
+};
+
+export type PaymentUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: PaymentUpdateInput;
+  /** Unique document search */
+  where: PaymentWhereUniqueInput;
+};
+
+export type PaymentUpsertInput = {
+  /** Create document if it didn't exist */
+  create: PaymentCreateInput;
+  /** Update document if it exists */
+  update: PaymentUpdateInput;
+};
+
+export type PaymentUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: PaymentUpsertInput;
+  /** Unique document search */
+  where: PaymentWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type PaymentWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type PaymentWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PaymentWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<PaymentWhereStageInput>;
+  documentInStages_none?: InputMaybe<PaymentWhereStageInput>;
+  documentInStages_some?: InputMaybe<PaymentWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  idTransaction?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  idTransaction_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  idTransaction_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  idTransaction_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  idTransaction_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  idTransaction_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  idTransaction_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  idTransaction_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  idTransaction_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  idTransaction_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  statusTransaction?: InputMaybe<Scalars['Boolean']>;
+  /** Any other value that exists and is not equal to the given value. */
+  statusTransaction_not?: InputMaybe<Scalars['Boolean']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** Any other value that exists and is not equal to the given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type PaymentWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<PaymentWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<PaymentWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<PaymentWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<PaymentWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Payment record uniquely */
+export type PaymentWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  idTransaction?: InputMaybe<Scalars['String']>;
 };
 
 export type Post = Node & {
@@ -3810,6 +4389,14 @@ export type Query = {
   pages: Array<Page>;
   /** Retrieve multiple pages using the Relay connection interface */
   pagesConnection: PageConnection;
+  /** Retrieve a single payment */
+  payment?: Maybe<Payment>;
+  /** Retrieve document version */
+  paymentVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple payments */
+  payments: Array<Payment>;
+  /** Retrieve multiple payments using the Relay connection interface */
+  paymentsConnection: PaymentConnection;
   /** Retrieve a single post */
   post?: Maybe<Post>;
   /** Retrieve document version */
@@ -3973,6 +4560,44 @@ export type QueryPagesConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<PageWhereInput>;
+};
+
+
+export type QueryPaymentArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: PaymentWhereUniqueInput;
+};
+
+
+export type QueryPaymentVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryPaymentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<PaymentOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<PaymentWhereInput>;
+};
+
+
+export type QueryPaymentsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<PaymentOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<PaymentWhereInput>;
 };
 
 
@@ -4300,7 +4925,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Author | Page | Post | Seo | Tag;
+export type ScheduledOperationAffectedDocument = Asset | Author | Page | Payment | Post | Seo | Tag;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -6828,16 +7453,40 @@ export type GetPostBySlugQueryVariables = Exact<{
 
 export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', title: string, createdAt: any, coverImage?: { __typename?: 'Asset', url: string } | null, seo?: { __typename?: 'Seo', description?: string | null, keywords: Array<string>, title?: string | null } | null, tags: Array<{ __typename?: 'Tag', name: string }>, content: { __typename?: 'RichText', html: string }, author?: { __typename?: 'Author', name: string, picture?: { __typename?: 'Asset', url: string } | null } | null } | null };
 
-export type GetPostsContainsTitleQueryVariables = Exact<{
-  contains?: InputMaybe<Scalars['String']>;
+export type GetPaymentByIdTransactionQueryVariables = Exact<{
+  idTransaction?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetPostsContainsTitleQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', title: string, createdAt: any, slug: string, coverImage?: { __typename?: 'Asset', url: string } | null, seo?: { __typename?: 'Seo', description?: string | null, keywords: Array<string>, title?: string | null } | null, tags: Array<{ __typename?: 'Tag', name: string }>, content: { __typename?: 'RichText', html: string }, author?: { __typename?: 'Author', name: string, picture?: { __typename?: 'Asset', url: string } | null } | null }> };
+export type GetPaymentByIdTransactionQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', idTransaction: string, statusTransaction: boolean } | null };
+
+export type PostCreatePaymentMutationVariables = Exact<{
+  idPayment: Scalars['String'];
+}>;
+
+
+export type PostCreatePaymentMutation = { __typename?: 'Mutation', createPayment?: { __typename?: 'Payment', id: string, idTransaction: string } | null };
+
+export type UpdatePaymentStatusMutationVariables = Exact<{
+  idPayment?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdatePaymentStatusMutation = { __typename?: 'Mutation', updatePayment?: { __typename?: 'Payment', id: string } | null };
+
+export type PostPublishedPaymentMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type PostPublishedPaymentMutation = { __typename?: 'Mutation', publishPayment?: { __typename?: 'Payment', id: string } | null };
 
 
 export const GetPostsPaginationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostsPagination"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postsPerPage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title_contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postsPerPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"free"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>;
 export const GetTagsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetTagsQuery, GetTagsQueryVariables>;
 export const GetPostsSlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostsSlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<GetPostsSlugQuery, GetPostsSlugQueryVariables>;
 export const GetPostBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"keywords"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
-export const GetPostsContainsTitleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostsContainsTitle"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"contains"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title_contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"contains"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"keywords"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<GetPostsContainsTitleQuery, GetPostsContainsTitleQueryVariables>;
+export const GetPaymentByIdTransactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPaymentByIdTransaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"payment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"idTransaction"}},{"kind":"Field","name":{"kind":"Name","value":"statusTransaction"}}]}}]}}]} as unknown as DocumentNode<GetPaymentByIdTransactionQuery, GetPaymentByIdTransactionQueryVariables>;
+export const PostCreatePaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postCreatePayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"statusTransaction"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"idTransaction"}}]}}]}}]} as unknown as DocumentNode<PostCreatePaymentMutation, PostCreatePaymentMutationVariables>;
+export const UpdatePaymentStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updatePaymentStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"statusTransaction"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdatePaymentStatusMutation, UpdatePaymentStatusMutationVariables>;
+export const PostPublishedPaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postPublishedPayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishPayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<PostPublishedPaymentMutation, PostPublishedPaymentMutationVariables>;
