@@ -3,7 +3,6 @@ import { roboto, robotoMono } from "pages/_app"
 
 import classNames from "classnames"
 
-import Button from "components/ui/Button"
 import useTyping from "hooks/useTyping"
 import PaymentButton from "../PaymentButton"
 import { useSession } from "next-auth/react"
@@ -34,7 +33,7 @@ const AlertScroll = () => {
 
 const Introduction = ({ dataAnimation }: IntroductionProps) => {
     const text = useTyping(dataAnimation)
-
+    
     const { data: session } = useSession()
 
     return (
@@ -57,7 +56,7 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
                         </span>
                     </h1>
                     <p className={classNames('uppercase text-sm text-emerald-500 mb-3 after:content-["|"] after:ml-1 after:font-semibold after:animate-blink', robotoMono.className)}> 
-                        &nbsp { text }
+                        { text }
                     </p>
                     <p className={`${roboto.className} text-lg mb-5 max-w-[550px]`}> 
                         {

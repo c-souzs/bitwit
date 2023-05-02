@@ -14,12 +14,10 @@ import Loader from "components/ui/Loader"
 import { GetServerSideProps } from "next"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./api/auth/[...nextauth]"
-import { getSession } from "next-auth/react"
-
 
 const AlertNotPayment = () => (
-        <div>
-            <p>Faça a compra para realizar o cadastro.</p>
+        <div className='flex flex-col gap-4 items-center'>
+            <p className='text-lg text-center'>Faça a compra para realizar o cadastro 💳</p>
             <PaymentButton>
                 Comprar
             </PaymentButton>
@@ -31,8 +29,8 @@ type WaitingPaymentProps = {
 }
 
 const WaitingPayment = ({ verifyPayment, idTransactionCookie }: WaitingPaymentProps) => (
-    <div>
-        <p>Seu pagamento ainda não foi aprovado.</p>
+    <div className='flex flex-col gap-4 items-center'>
+        <p className='text-lg text-center'>Seu pagamento ainda não foi aprovado 💳❌</p>
         <Button
             onClick={() => verifyPayment(idTransactionCookie)}
         >
@@ -78,11 +76,11 @@ const Register = () => {
                 <div className='max-w-6xl h-full w-full mx-auto px-5 flex flex-col items-center gap-4'>
                     {isLoading && <Loader />}
 
-                    {!idTransactionCookie && <AlertNotPayment/> }
+                    {(!idTransactionCookie && !isLoading) && <AlertNotPayment/> }
 
-                    {(idTransactionCookie && data && data.statusTransaction) && <FormRegister />}
+                    {(idTransactionCookie && data && data.statusTransaction && !isLoading) && <FormRegister />}
 
-                    { (idTransactionCookie && data && !data.statusTransaction) && <WaitingPayment idTransactionCookie={idTransactionCookie} verifyPayment={verifyPayment} /> }
+                    { (idTransactionCookie && data && !data.statusTransaction && !isLoading) && <WaitingPayment idTransactionCookie={idTransactionCookie} verifyPayment={verifyPayment} /> }
                 </div>
             </section>
         </LayoutMain>

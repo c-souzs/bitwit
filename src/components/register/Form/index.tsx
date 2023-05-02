@@ -15,6 +15,7 @@ import { signIn } from "next-auth/react"
 import client from "graphql/client"
 import { MUTATION_DELETE_PAYMENT } from "graphql/queries"
 import { DeletePaymentMutation } from "graphql/generated/graphql"
+import FormHeader from "@/components/ui/FormHeader"
 
 type ReponseAuthor = {
     email: string
@@ -77,11 +78,10 @@ const FormRegister = () => {
 
     return (
         <>
-            <div className='shadow-div rounded px-10 py-6'>
-                <h2 className='text-emerald-500 text-2xl flex items-center gap-2 mb-2 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>Preencha seus dados</h2>
-                <p className={classNames('mb-8', roboto.className)}>Você está a um passo de acessar o melhor conteúdo sobre javascript.</p>
+            <div className='shadow-div rounded py-6 px-8 sm:px-10'>
+                <FormHeader />
                 <form className='flex flex-col gap-6' onSubmit={handlerRegister}>
-                    <div className='flex gap-6'>
+                    <div className='flex flex-wrap gap-6'>
                         <Input label='Nome' id='name-login' value={name} changeValue={(newValue: string) => setName(newValue)} placeholder='Caio Souza' required/>
                         <Input label='Senha' id='password-login' value={password} changeValue={(newValue: string) => setPassword(newValue)} placeholder='••••••••' type='password' required/>
                     </div>

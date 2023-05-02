@@ -13,12 +13,9 @@ const Login = () => {
         <LayoutMain footer>
             <section className=' bg-glacial-emerald-50 h-full py-8'>
                 <div className='max-w-6xl h-full w-full mx-auto px-5'>
-                    <div className='max-w-sm shadow-div rounded px-10 py-6'>
-                            <FormHeader />
-                            <FormLogin />
-                    </div>
+                    <FormLogin />
+                    <FirstTime />
                 </div>
-                <FirstTime />
             </section>
         </LayoutMain>
     )
