@@ -14,6 +14,7 @@ import Introduction from "components/home/Introduction"
 import LayoutMain from "components/layout/Main"
 import SearchPost from "components/home/Search"
 import Paginated from "@/components/home/Paginated"
+import { useSession } from "next-auth/react"
 
 type HomeProps = {
     tags: Tag[]
@@ -45,12 +46,18 @@ export default function Home({ tags }: HomeProps) {
         if(cookieTransaction) router.push('/register')
     }, [])  
 
+    const { data: session } = useSession()
+
     return (
         <LayoutMain>
             <Introduction dataAnimation={tagsDataAnimation}/>
-            <SearchPost 
-                changeTitleSearch={changeTitleSearch}
-            />
+            {
+                (session && session.user) && (
+                    <SearchPost 
+                        changeTitleSearch={changeTitleSearch}
+                    />
+                )
+            }
             <PaginatedProvider>
                 <Paginated 
                     titleSearch={titleSearch}

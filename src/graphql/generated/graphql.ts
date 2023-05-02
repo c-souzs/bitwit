@@ -776,7 +776,6 @@ export type Author = Node & {
   name: Scalars['String'];
   /** Password to authentication */
   password: Scalars['String'];
-  paymentState?: Maybe<Scalars['Boolean']>;
   /** Add a profile picture for authors */
   picture?: Maybe<Asset>;
   /** Connect blog posts to this author */
@@ -881,7 +880,6 @@ export type AuthorCreateInput = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
-  paymentState?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetCreateOneInlineInput>;
   posts?: InputMaybe<PostCreateManyInlineInput>;
   title?: InputMaybe<Scalars['String']>;
@@ -1016,9 +1014,6 @@ export type AuthorManyWhereInput = {
   password_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   password_starts_with?: InputMaybe<Scalars['String']>;
-  paymentState?: InputMaybe<Scalars['Boolean']>;
-  /** Any other value that exists and is not equal to the given value. */
-  paymentState_not?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetWhereInput>;
   posts_every?: InputMaybe<PostWhereInput>;
   posts_none?: InputMaybe<PostWhereInput>;
@@ -1090,8 +1085,6 @@ export enum AuthorOrderByInput {
   NameDesc = 'name_DESC',
   PasswordAsc = 'password_ASC',
   PasswordDesc = 'password_DESC',
-  PaymentStateAsc = 'paymentState_ASC',
-  PaymentStateDesc = 'paymentState_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
   TitleAsc = 'title_ASC',
@@ -1104,7 +1097,6 @@ export type AuthorUpdateInput = {
   email?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
-  paymentState?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetUpdateOneInlineInput>;
   posts?: InputMaybe<PostUpdateManyInlineInput>;
   title?: InputMaybe<Scalars['String']>;
@@ -1130,7 +1122,6 @@ export type AuthorUpdateManyInlineInput = {
 export type AuthorUpdateManyInput = {
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
-  paymentState?: InputMaybe<Scalars['Boolean']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -1288,9 +1279,6 @@ export type AuthorWhereInput = {
   password_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   password_starts_with?: InputMaybe<Scalars['String']>;
-  paymentState?: InputMaybe<Scalars['Boolean']>;
-  /** Any other value that exists and is not equal to the given value. */
-  paymentState_not?: InputMaybe<Scalars['Boolean']>;
   picture?: InputMaybe<AssetWhereInput>;
   posts_every?: InputMaybe<PostWhereInput>;
   posts_none?: InputMaybe<PostWhereInput>;
@@ -7451,7 +7439,14 @@ export type GetPostBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', title: string, createdAt: any, coverImage?: { __typename?: 'Asset', url: string } | null, seo?: { __typename?: 'Seo', description?: string | null, keywords: Array<string>, title?: string | null } | null, tags: Array<{ __typename?: 'Tag', name: string }>, content: { __typename?: 'RichText', html: string }, author?: { __typename?: 'Author', name: string, picture?: { __typename?: 'Asset', url: string } | null } | null } | null };
+export type GetPostBySlugQuery = { __typename?: 'Query', post?: { __typename?: 'Post', free: boolean, title: string, createdAt: any, coverImage?: { __typename?: 'Asset', url: string } | null, seo?: { __typename?: 'Seo', description?: string | null, keywords: Array<string>, title?: string | null } | null, tags: Array<{ __typename?: 'Tag', name: string }>, content: { __typename?: 'RichText', html: string }, author?: { __typename?: 'Author', name: string, picture?: { __typename?: 'Asset', url: string } | null } | null } | null };
+
+export type GetAuthorByEmailQueryVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAuthorByEmailQuery = { __typename?: 'Query', author?: { __typename?: 'Author', id: string, name: string, email: string, password: string } | null };
 
 export type GetPaymentByIdTransactionQueryVariables = Exact<{
   idTransaction?: InputMaybe<Scalars['String']>;
@@ -7459,6 +7454,15 @@ export type GetPaymentByIdTransactionQueryVariables = Exact<{
 
 
 export type GetPaymentByIdTransactionQuery = { __typename?: 'Query', payment?: { __typename?: 'Payment', idTransaction: string, statusTransaction: boolean } | null };
+
+export type PostCreateAuthorMutationVariables = Exact<{
+  name: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type PostCreateAuthorMutation = { __typename?: 'Mutation', createAuthor?: { __typename?: 'Author', email: string, password: string } | null };
 
 export type PostCreatePaymentMutationVariables = Exact<{
   idPayment: Scalars['String'];
@@ -7481,12 +7485,30 @@ export type PostPublishedPaymentMutationVariables = Exact<{
 
 export type PostPublishedPaymentMutation = { __typename?: 'Mutation', publishPayment?: { __typename?: 'Payment', id: string } | null };
 
+export type PostPublishedAuthorMutationVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type PostPublishedAuthorMutation = { __typename?: 'Mutation', publishAuthor?: { __typename?: 'Author', id: string } | null };
+
+export type DeletePaymentMutationVariables = Exact<{
+  idTransaction?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type DeletePaymentMutation = { __typename?: 'Mutation', deletePayment?: { __typename?: 'Payment', id: string } | null };
+
 
 export const GetPostsPaginationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostsPagination"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"title"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"postsPerPage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"title_contains"},"value":{"kind":"Variable","name":{"kind":"Name","value":"title"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"postsPerPage"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currentPage"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"free"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>;
 export const GetTagsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetTagsQuery, GetTagsQueryVariables>;
 export const GetPostsSlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostsSlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"posts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<GetPostsSlugQuery, GetPostsSlugQueryVariables>;
-export const GetPostBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"keywords"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
+export const GetPostBySlugDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPostBySlug"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"coverImage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"seo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"keywords"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}},{"kind":"Field","name":{"kind":"Name","value":"free"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"html"}}]}},{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"picture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
+export const GetAuthorByEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAuthorByEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"author"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}}]}}]}}]} as unknown as DocumentNode<GetAuthorByEmailQuery, GetAuthorByEmailQueryVariables>;
 export const GetPaymentByIdTransactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getPaymentByIdTransaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"payment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"idTransaction"}},{"kind":"Field","name":{"kind":"Name","value":"statusTransaction"}}]}}]}}]} as unknown as DocumentNode<GetPaymentByIdTransactionQuery, GetPaymentByIdTransactionQueryVariables>;
+export const PostCreateAuthorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postCreateAuthor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createAuthor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}}]}}]}}]} as unknown as DocumentNode<PostCreateAuthorMutation, PostCreateAuthorMutationVariables>;
 export const PostCreatePaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postCreatePayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"statusTransaction"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"idTransaction"}}]}}]}}]} as unknown as DocumentNode<PostCreatePaymentMutation, PostCreatePaymentMutationVariables>;
 export const UpdatePaymentStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"updatePaymentStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idPayment"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"statusTransaction"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdatePaymentStatusMutation, UpdatePaymentStatusMutationVariables>;
 export const PostPublishedPaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postPublishedPayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishPayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<PostPublishedPaymentMutation, PostPublishedPaymentMutationVariables>;
+export const PostPublishedAuthorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"postPublishedAuthor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"publishAuthor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<PostPublishedAuthorMutation, PostPublishedAuthorMutationVariables>;
+export const DeletePaymentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deletePayment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deletePayment"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"idTransaction"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idTransaction"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeletePaymentMutation, DeletePaymentMutationVariables>;

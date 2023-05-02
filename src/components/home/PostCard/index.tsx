@@ -4,6 +4,7 @@ import { roboto } from "pages/_app"
 import { PostCardData } from "types"
 import LinkWrapper from "@/components/ui/Link"
 import PaymentButton from "../PaymentButton"
+import { useSession } from "next-auth/react"
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" aria-label="Ícone de seta para a direita, indicando que vai para outra página." xmlns="http://www.w3.org/2000/svg">
@@ -25,13 +26,17 @@ type PostProps = {
 const PostCard = ({ data }: PostProps) => {
     const { coverImage, title, tags, excerpt, slug, free } = data
     
+    const { data: session } = useSession()
+
+    const asBlur = (session && session.user) ? false : !free
+
     return (
         <div 
             className={classNames('rounded overflow-hidden shadow-div relative group')}
             role='listitem'
             data-testid='post-card-item'>
             {
-                !free && (
+                asBlur && (
                     <div className='absolute top-0 left-0 right-0 bottom-0 z-10 justify-center items-center hidden group-hover:flex'>
                         <PaymentButton
                             aria-label='Clique aqui para acessar a página de planos e desbloquear o conteúdo do post.'
@@ -42,7 +47,7 @@ const PostCard = ({ data }: PostProps) => {
                     </div>
                 )
             }
-            <div className={classNames('h-full flex flex-col justify-between', {'blur-[2px]': !free})}>
+            <div className={classNames('h-full flex flex-col justify-between', {'blur-[2px]': asBlur})}>
                 <div>
                     <figure>
                         <img 

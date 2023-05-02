@@ -11,6 +11,10 @@ import LayoutMain from "components/layout/Main"
 import FormRegister from "components/register/Form"
 import Button from "components/ui/Button"
 import Loader from "components/ui/Loader"
+import { GetServerSideProps } from "next"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./api/auth/[...nextauth]"
+import { getSession } from "next-auth/react"
 
 
 const AlertNotPayment = () => (
@@ -54,9 +58,9 @@ const Register = () => {
 
     const { data, isLoading, mutate: verifyPayment } = useMutation(
         fetchStatusPayment, {
-            onError: () => {
-                console.log('Erro bem aqui')
-            }
+            // onError: () => {
+            //     console.log('Erro bem aqui')
+            // }
         })
 
     React.useEffect(() => {
@@ -83,6 +87,16 @@ const Register = () => {
             </section>
         </LayoutMain>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const session = await getServerSession(req, res, authOptions)
+
+    if(session) return { redirect: { destination: '/', permanent: true } }
+    
+    return {
+        props: {}
+    }
 }
 
 export default Register

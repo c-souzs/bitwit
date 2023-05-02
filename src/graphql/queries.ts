@@ -44,6 +44,7 @@ export const GET_POST_BY_SLUG = gql`
                 keywords
                 title
             }
+            free
             title
             tags {
                 name
@@ -62,11 +63,31 @@ export const GET_POST_BY_SLUG = gql`
     }
 `
 
+export const GET_AUTHOR_BY_EMAIL = gql`
+    query getAuthorByEmail($email: String) {
+        author(where: {email: $email}) {
+            id
+            name
+            email
+            password
+        }
+    }
+`
+
 export const GET_PAYMENT_BY_ID_TRANSACTION = gql`
     query getPaymentByIdTransaction($idTransaction: String) {
         payment(where: {idTransaction: $idTransaction}) {
             idTransaction
             statusTransaction
+        }
+    }
+`
+
+export const MUTATION_CREATE_AUTHOR = gql`
+    mutation postCreateAuthor($name: String!, $email: String!, $password: String!) {
+        createAuthor(data: {name: $name, email: $email, password: $password}) {
+            email
+            password
         }
     }
 `
@@ -91,6 +112,22 @@ export const MUTATION_UPDATE_PAYMENT = gql`
 export const MUTATION_PUBLISHED_PAYMENT = gql`
     mutation postPublishedPayment($id: ID){
         publishPayment(where: {id: $id}) {
+            id
+        }
+    }
+`
+
+export const MUTATION_PUBLISHED_AUTHOR = gql`
+    mutation postPublishedAuthor($email: String){
+        publishAuthor(where: {email: $email}) {
+            id
+        }
+    }
+`
+
+export const MUTATION_DELETE_PAYMENT = gql`
+    mutation deletePayment($idTransaction: String) {
+        deletePayment(where: {idTransaction: $idTransaction}) {
             id
         }
     }

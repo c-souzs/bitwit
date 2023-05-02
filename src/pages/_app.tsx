@@ -3,6 +3,7 @@ import '../styles/global.css'
 import type { AppProps } from 'next/app'
 import { Inter, Roboto, Roboto_Mono } from 'next/font/google'
 import { QueryClientProvider } from 'react-query'
+import { SessionProvider } from 'next-auth/react'
 
 if(process.env.NEXT_PUBLIC_API_MOCKING === 'true') {
     import('../mocks').then(({ setupMocks }) => {
@@ -26,10 +27,12 @@ export const robotoMono = Roboto_Mono({
   })
   
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return ( 
-        <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-        </QueryClientProvider>
+        <SessionProvider session={session}>
+            <QueryClientProvider client={queryClient}>
+                <Component {...pageProps} />
+            </QueryClientProvider>
+        </SessionProvider>
    )
 }

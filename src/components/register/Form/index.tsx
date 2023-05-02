@@ -9,6 +9,33 @@ import useConfirmPassword from "hooks/useConfirmPassword"
 
 import Button from "components/ui/Button"
 import Input from "components/ui/Input"
+import { api } from "service/axios"
+import { useMutation } from "react-query"
+import { signIn } from "next-auth/react"
+import client from "graphql/client"
+import { MUTATION_DELETE_PAYMENT } from "graphql/queries"
+import { DeletePaymentMutation } from "graphql/generated/graphql"
+
+type ReponseAuthor = {
+    email: string
+    password: string
+}
+
+type PostAuthor = {
+    name: string
+    email: string
+    password: string
+}
+
+const postAuthor = async ({ email, name, password }: PostAuthor) => {
+    const { data  } = await api.post<ReponseAuthor, any>('/author', { name, email, password })
+    const { email: emailAuthor, password: passwordAuthor } = data
+
+    return {
+        email: emailAuthor,
+        password: passwordAuthor
+    }
+}
 
 const FormRegister = () => {
     const [email, setEmail] = React.useState('')
@@ -17,13 +44,36 @@ const FormRegister = () => {
 
     const { confirmPassword, changeConfirmPassword, confirm } = useConfirmPassword(password)
 
-    const handlerRegister = (e: FormEvent) => {
+    const { data, isLoading, mutate: createAuthor } = useMutation(
+        postAuthor, {
+            onSuccess: async () => {
+                const idTransaction = Cookies.get('idTransaction')
+
+                await client.request<DeletePaymentMutation>(MUTATION_DELETE_PAYMENT, { idTransaction })
+                
+                Cookies.remove('idTransaction')
+
+            }
+        })
+
+    const handlerRegister = async (e: FormEvent) => {
         e.preventDefault()
 
-        // Após criar o usuário o cookie com a id da transação é removido
-        // Ele também deve, ou ainda vai, deletar o status da transação na CMS
-        Cookies.remove('idTransaction')
+        createAuthor({
+            email, name, password
+        })
     }
+
+    React.useEffect(() => {
+        const callLogin = async () => {
+            if(data) {
+                await signIn('credentials', {
+                    email, password
+                })
+            }
+        }
+        callLogin()
+    }, [data])
 
     return (
         <>
@@ -41,8 +91,11 @@ const FormRegister = () => {
                             <Input label='Confirmar senha' id='password-confirm-login' value={confirmPassword} changeValue={(newValue: string) => changeConfirmPassword(newValue)} placeholder='••••••••' type='password' required/>
                         )
                     }
-                    <Button>
-                        <p className='w-full'>Criar conta</p>
+                    <Button
+                        type='submit'
+                        disabled={isLoading}
+                    >
+                        <p className='w-full'>{isLoading ? 'Carregando....': 'Criar conta'}</p>
                     </Button>
                 </form>
                 {

@@ -6,6 +6,7 @@ import classNames from "classnames"
 import Button from "components/ui/Button"
 import useTyping from "hooks/useTyping"
 import PaymentButton from "../PaymentButton"
+import { useSession } from "next-auth/react"
 
 type IntroductionProps = {
     dataAnimation: string[]
@@ -34,6 +35,8 @@ const AlertScroll = () => {
 const Introduction = ({ dataAnimation }: IntroductionProps) => {
     const text = useTyping(dataAnimation)
 
+    const { data: session } = useSession()
+
     return (
         <section
             className='h-[calc(100vh-80px)] relative'
@@ -57,11 +60,18 @@ const Introduction = ({ dataAnimation }: IntroductionProps) => {
                         &nbsp { text }
                     </p>
                     <p className={`${roboto.className} text-lg mb-5 max-w-[550px]`}> 
-                        Encontre tudo sobre front-end e back-end. Faça qualquer pergunta. Entre para a melhor comunidade. Tudo isso com um preço acessível que cabe no seu bolso. 
+                        {
+                            (session && session.user) ? `Bem-vindo à nossa comunidade, ${session.user?.name}! Aqui você encontrará tudo o que precisa saber sobre front-end e back-end, além de ter a oportunidade de se conectar com outros entusiastas da área.` :
+                            'Descubra tudo sobre front-end e back-end e participe da nossa incrível comunidade. Tudo isso a um preço acessível, que cabe no seu orçamento. Junte-se a nós agora mesmo para aproveitar essa oportunidade única!'
+                        }
                     </p>
-                    <PaymentButton>
-                        INSCREVA-SE
-                    </PaymentButton>
+                    {
+                        !session && (
+                            <PaymentButton>
+                                INSCREVA-SE
+                            </PaymentButton>
+                        )
+                    }
                 </div>
             </div>
             <AlertScroll />
