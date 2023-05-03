@@ -10,7 +10,6 @@ import HeaderPost from "components/post/Header"
 import ContentPost from "components/post/Content"
 import Loader from "components/ui/Loader"
 import useSessionAuthor from "hooks/useSessionAuthor"
-import { NextSeo } from "next-seo"
 
 type PostProps = {
     post: Pick<PostType, 'coverImage' | 'seo' | 'title' | 'tags' | 'content' | 'author' | 'createdAt' | 'free'>
@@ -23,14 +22,6 @@ const Post = ({ post }: PostProps) => {
 
     return (
         <>
-            <NextSeo 
-                title={`${post.seo?.title} | Bitwit`}
-                description={post.seo?.description || ''}
-                additionalMetaTags={[{
-                    name: 'keywords',
-                    content: `${post.seo?.keywords}`
-                }]}
-            />
             <LayoutMain footer>
                 {
                     ((session && session.user) || post?.free ) ? (
