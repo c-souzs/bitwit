@@ -3,6 +3,7 @@ import React from "react"
 import { GetStaticProps } from "next"
 import { useRouter } from "next/router"
 
+import { NextSeo } from 'next-seo'
 import Cookies from "js-cookie"
 
 import client from "graphql/client"
@@ -13,7 +14,7 @@ import { PaginatedProvider } from "contexts/PaginatedCtx"
 import Introduction from "components/home/Introduction"
 import LayoutMain from "components/layout/Main"
 import SearchPost from "components/home/Search"
-import Paginated from "@/components/home/Paginated"
+import Paginated from "components/home/Paginated"
 import useSessionAuthor from "hooks/useSessionAuthor"
 
 type HomeProps = {
@@ -49,21 +50,45 @@ export default function Home({ tags }: HomeProps) {
     const { session } = useSessionAuthor()
 
     return (
-        <LayoutMain>
-            <Introduction dataAnimation={tagsDataAnimation}/>
-            {
-                (session && session.user) && (
-                    <SearchPost 
-                        changeTitleSearch={changeTitleSearch}
+        <>
+            <NextSeo 
+                title='Bitwit | Os melhores conteúdos de javascript'
+                description='Bitwit, o blog de tecnologias JavaScript oferece códigos, dicas e tutoriais abrangentes e atualizados sobre o universo da programação front-end e back-end. Com uma abordagem prática e acessível, nossos posts ajudam desenvolvedores e entusiastas a aprimorar suas habilidades e ficar por dentro das últimas tendências e novidades em JavaScript. Em nossa página inicial, você pode encontrar facilmente o conteúdo que procura, graças a nossa barra de pesquisa e lista de posts. Além disso, temos uma área de inscrição para que você possa receber conteúdo exclusivo e se manter atualizado. Junte-se a nossa comunidade de desenvolvedores e leve suas habilidades em JavaScript para o próximo nível!'
+                // Armazenar a url online do blog
+                // canonical=''
+                openGraph={{
+                    // Armazenar a url online do blog
+                    // url: ''
+                    title: 'Bitwit | Os melhores conteúdos de javascript',
+                    images: [{
+                        url: '',
+                        width: 1280,
+                        height: 720,
+                        alt: 'Bitwit banner'
+                    }],
+                    siteName: 'Bitwit'
+                }}
+                additionalMetaTags={[{
+                    name: 'keywords',
+                    content: 'blog, programação, javascript, typescript, bitwit, tecnologia, front-end, back-end, node'
+                }]}
+            />
+            <LayoutMain>
+                <Introduction dataAnimation={tagsDataAnimation}/>
+                {
+                    (session && session.user) && (
+                        <SearchPost 
+                            changeTitleSearch={changeTitleSearch}
+                        />
+                    )
+                }
+                <PaginatedProvider>
+                    <Paginated 
+                        titleSearch={titleSearch}
                     />
-                )
-            }
-            <PaginatedProvider>
-                <Paginated 
-                    titleSearch={titleSearch}
-                />
-            </PaginatedProvider>
-        </LayoutMain>
+                </PaginatedProvider>
+            </LayoutMain>
+        </>
     )
 }
 

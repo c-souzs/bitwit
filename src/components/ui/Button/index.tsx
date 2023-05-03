@@ -1,5 +1,5 @@
-import classNames from "classnames";
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import classNames from "classnames"
+import { ButtonHTMLAttributes, ReactNode } from "react"
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     small?: boolean
@@ -37,4 +37,4 @@ const Button = ({ children, small, secondary, type = 'button', ...rest }: IButto
     }
 }
 
-export default Button;
+export default Button
