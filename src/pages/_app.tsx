@@ -4,7 +4,6 @@ import type { AppProps } from 'next/app'
 import { Inter, Roboto, Roboto_Mono } from 'next/font/google'
 import { QueryClientProvider } from 'react-query'
 import { SessionProvider } from 'next-auth/react'
-import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar';
 
 if(process.env.NEXT_PUBLIC_API_MOCKING === 'true') {

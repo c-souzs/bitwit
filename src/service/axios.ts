@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'https://bitwit-eight.vercel.app/'
+const baseURL = 'https://bitwit-eight.vercel.app'
 
 const axiosInstance = axios.create({
     baseURL
