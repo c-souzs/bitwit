@@ -16,12 +16,12 @@ const handlerPost: NextApiHandler = async (req, res) => {
 
     try {
         const passwordHash = await hash(password, 12)
-
+        
         const { createAuthor } = await client.request<PostCreateAuthorMutation>(MUTATION_CREATE_AUTHOR, { email, name, password: passwordHash })
         
         if(createAuthor) {
             const { email, password } = createAuthor
-
+            
             await client.request<PostPublishedAuthorMutation>(MUTATION_PUBLISHED_AUTHOR, { email })
             
             return res.status(200).json({

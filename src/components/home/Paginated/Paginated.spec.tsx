@@ -5,10 +5,13 @@ import userEvent from '@testing-library/user-event'
 import Paginated from '.'
 
 import usePosts from 'hooks/usePosts'
+import useSessionAuthor from 'hooks/useSessionAuthor'
 import { mswServer } from 'mocks/mswServer'
 import * as fetcher from 'service/customFetcher'
 import { dataCurretPage01, dataCurretPage02, dataCurretPage03, dataTitleSearch, dataTitleSearchEmpty } from 'mocks/handlers/api/posts'
 import { PaginatedProvider } from 'contexts/PaginatedCtx'
+import { SessionProvider } from 'next-auth/react'
+import { postsPerPage } from 'service/queryClient'
 
 
 jest.mock('service/customFetcher')
@@ -17,14 +20,25 @@ const fetcherSpy = jest.spyOn(fetcher, 'fetchPostsByPage')
 jest.mock('hooks/usePosts')
 const mockedUsePosts = usePosts as jest.Mock<any>;
 
+jest.mock('hooks/useSessionAuthor')
+const mockedUseSessionAuthor = useSessionAuthor as jest.Mock<any>;
+
 const queryClient = new QueryClient()
 
-const paginatedRender = (title = '') => render(
-    <QueryClientProvider client={queryClient}>
-        <PaginatedProvider>
-            <Paginated titleSearch={title}/>
-        </PaginatedProvider>
-    </QueryClientProvider>
+const paginatedRender = (hasUser: boolean, title = '') => render(
+    <SessionProvider session={hasUser ? {
+        expires: '3600',
+        user: {
+            email: 'teste@gmail.com',
+            name: 'Teste'
+        }
+    } : null}>
+        <QueryClientProvider client={queryClient}>
+            <PaginatedProvider>
+                <Paginated titleSearch={title}/>
+            </PaginatedProvider>
+        </QueryClientProvider>
+    </SessionProvider>
 )
 
 describe('Paginated Posts List', () => {
@@ -46,6 +60,10 @@ describe('Paginated Posts List', () => {
                 data: dataCurretPage01.data
             })
         }))
+        mockedUseSessionAuthor.mockImplementation(() => ({
+            session: true,
+            status: 'authenticated',
+        }))
         mockedUsePosts.mockImplementation(() => ({
             setTitle: jest.fn(),
             posts: dataCurretPage01.data, 
@@ -54,12 +72,12 @@ describe('Paginated Posts List', () => {
             hasNextPage: true
         }))
         
-        paginatedRender()
+        paginatedRender(true)
 
         await waitFor(() => {
             const posts = screen.getAllByTestId('post-card-item')
 
-            expect(posts.length).toBe(2)
+            expect(posts.length).toBe(postsPerPage)
         })
     })
 
@@ -70,7 +88,10 @@ describe('Paginated Posts List', () => {
             })
         }))
         const mockFetchNextPage = jest.fn();
-
+        mockedUseSessionAuthor.mockImplementation(() => ({
+            session: true,
+            status: 'authenticated',
+        }))
         mockedUsePosts.mockImplementation(() => ({
             setTitle: jest.fn(),
             posts: dataCurretPage02.data, 
@@ -79,17 +100,16 @@ describe('Paginated Posts List', () => {
             hasNextPage: true
         }))
         
-        paginatedRender()
+        paginatedRender(true)
 
         const button = screen.getByText('Carregar mais')
 
         userEvent.click(button)
 
-        
         await waitFor(() => {
             const posts = screen.getAllByTestId('post-card-item')
             
-            expect(posts.length).toBe(4)
+            expect(posts.length).toBe(postsPerPage * 2)
             expect(mockFetchNextPage).toHaveBeenCalled()
         })
     })
@@ -97,28 +117,39 @@ describe('Paginated Posts List', () => {
     it('should render search posts', async () => {
         const title = 'Redux'
 
-        fetcherSpy.mockReturnValue(new Promise((resolve, reject) => {
-            resolve({
-                data: dataTitleSearch.data
-            })
+         fetcherSpy.mockReturnValue(new Promise((resolve, reject) => {
+             resolve({
+                 data: dataTitleSearch.data
+             })
+         }))
+         const mockFetchNextPage = jest.fn();
+         mockedUseSessionAuthor.mockImplementation(() => ({
+            session: true,
+            status: 'authenticated',
         }))
-        const mockFetchNextPage = jest.fn();
-
-        mockedUsePosts.mockImplementation(() => ({
-            setTitle: jest.fn(),
-            posts: dataTitleSearch.data, 
-            isLoadingPosts: false,
-            fetchNextPage: mockFetchNextPage,
-            hasNextPage: false
-        }))
+         mockedUsePosts.mockImplementation(() => ({
+             setTitle: jest.fn(),
+             posts: dataTitleSearch.data, 
+             isLoadingPosts: false,
+             fetchNextPage: mockFetchNextPage,
+             hasNextPage: false
+         }))
         
-        paginatedRender(title)
+         paginatedRender(true, title)
 
-        await waitFor(() => {
-            const posts = screen.getAllByTestId('post-card-item')
+         await waitFor(() => {
+             const posts = screen.getAllByTestId('post-card-item')
 
-            expect(posts.length).toBe(dataTitleSearch.data.length)
-        })
+             expect(posts.length).toBe(dataTitleSearch.data.length)
+         })
+    })
+
+    it('should render search posts, unauthenticated', async () => {
+        paginatedRender(true)
+
+        const search = screen.queryByTestId('search-component')
+
+        expect(search).toBeNull()
     })
 
     it('should render search posts result empty', async () => {
@@ -130,7 +161,10 @@ describe('Paginated Posts List', () => {
             })
         }))
         const mockFetchNextPage = jest.fn();
-
+        mockedUseSessionAuthor.mockImplementation(() => ({
+            session: true,
+            status: 'authenticated',
+        }))
         mockedUsePosts.mockImplementation(() => ({
             setTitle: jest.fn(),
             posts: dataTitleSearchEmpty.data, 
@@ -139,7 +173,7 @@ describe('Paginated Posts List', () => {
             hasNextPage: false
         }))
         
-        paginatedRender(title)
+        paginatedRender(true, title)
 
         await waitFor(() => {
             const alertEmptySearch = screen.getByTestId('empty-search')
@@ -155,7 +189,10 @@ describe('Paginated Posts List', () => {
             })
         }))
         const mockFetchNextPage = jest.fn();
-
+        mockedUseSessionAuthor.mockImplementation(() => ({
+            session: true,
+            status: 'authenticated',
+        }))
         mockedUsePosts.mockImplementation(() => ({
             setTitle: jest.fn(),
             posts: dataCurretPage03.data, 
@@ -164,7 +201,7 @@ describe('Paginated Posts List', () => {
             hasNextPage: false
         }))
         
-        paginatedRender()
+        paginatedRender(true)
         
         const loader = screen.getByTestId('loader')
 
@@ -187,7 +224,7 @@ describe('Paginated Posts List', () => {
             hasNextPage: false
         }))
         
-        paginatedRender()
+        paginatedRender(false)
         
         const alertEnd = screen.getByText('Todos os posts foram listados')
 

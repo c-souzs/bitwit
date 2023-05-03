@@ -9,7 +9,7 @@ import LayoutMain from "components/layout/Main"
 import HeaderPost from "components/post/Header"
 import ContentPost from "components/post/Content"
 import Loader from "components/ui/Loader"
-import { useSession } from "next-auth/react"
+import useSessionAuthor from "hooks/useSessionAuthor"
 
 type PostProps = {
     post: Pick<PostType, 'coverImage' | 'seo' | 'title' | 'tags' | 'content' | 'author' | 'createdAt' | 'free'>
@@ -18,7 +18,7 @@ type PostProps = {
 const Post = ({ post }: PostProps) => {
     const router = useRouter()
 
-    const { data: session } = useSession()
+    const { session } = useSessionAuthor()
 
     return (
         <LayoutMain footer>
@@ -52,7 +52,7 @@ const Post = ({ post }: PostProps) => {
                     <section>
                         <div className='max-w-6xl h-full w-full mx-auto px-5'>
                             <p className='text-lg text-center'>
-                                Você precisa estar autenticado para acessar o <br /> conteudo do post.
+                                Você precisa estar autenticado para acessar o <br /> conteudo do post 🔒🔑
                             </p>
                         </div>
                     </section>

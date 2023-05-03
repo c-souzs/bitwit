@@ -124,11 +124,3 @@ export const MUTATION_PUBLISHED_AUTHOR = gql`
         }
     }
 `
-
-export const MUTATION_DELETE_PAYMENT = gql`
-    mutation deletePayment($idTransaction: String) {
-        deletePayment(where: {idTransaction: $idTransaction}) {
-            id
-        }
-    }
-`

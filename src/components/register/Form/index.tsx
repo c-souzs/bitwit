@@ -12,9 +12,6 @@ import Input from "components/ui/Input"
 import { api } from "service/axios"
 import { useMutation } from "react-query"
 import { signIn } from "next-auth/react"
-import client from "graphql/client"
-import { MUTATION_DELETE_PAYMENT } from "graphql/queries"
-import { DeletePaymentMutation } from "graphql/generated/graphql"
 import FormHeader from "@/components/ui/FormHeader"
 
 type ReponseAuthor = {
@@ -50,10 +47,7 @@ const FormRegister = () => {
             onSuccess: async () => {
                 const idTransaction = Cookies.get('idTransaction')
 
-                await client.request<DeletePaymentMutation>(MUTATION_DELETE_PAYMENT, { idTransaction })
-                
-                Cookies.remove('idTransaction')
-
+                if(idTransaction) Cookies.remove('idTransaction')
             }
         })
 
@@ -95,7 +89,7 @@ const FormRegister = () => {
                         type='submit'
                         disabled={isLoading}
                     >
-                        <p className='w-full'>{isLoading ? 'Carregando....': 'Criar conta'}</p>
+                        <p className='w-full'>{isLoading ? 'Carregando ⏳': 'Criar conta'}</p>
                     </Button>
                 </form>
                 {

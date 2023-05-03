@@ -26,7 +26,6 @@ const handler: NextApiHandler = (req, res) => {
         case 'GET':
             handlerGet(req, res)
             break
-    
         default:
             break
     }

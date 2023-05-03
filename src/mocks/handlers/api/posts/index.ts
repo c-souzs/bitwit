@@ -56,13 +56,13 @@ export const dataTitleSearchEmpty = {
 }
 
 // Intercepta a função e baseado no currentPage e title retornado posts fake
-const handlerPostsGet = rest.get('/api/posts', (req, res, ctx) => {
+const handlerPostsGet = rest.get('/api/posts', async (req, res, ctx) => {
     const currentPage = req.url.searchParams.get('currentPage') as string
     const currentPageNumber = Number(currentPage)
 
     const title = req.url.searchParams.get('title') as string
-    
-    if(currentPageNumber < 4 && title != 'Empty') {
+
+    if(currentPageNumber < 3 && title != 'Empty') {
         if(title && title.length) {
             const dataWithTitleSearch = createPosts (currentPageNumber, title)
             return res(

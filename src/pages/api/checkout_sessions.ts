@@ -33,7 +33,6 @@ const handlerPost: NextApiHandler = async (req, res) => {
         const idTransaction = session.id
 
         const { createPayment } = await client.request<PostCreatePaymentMutation>(MUTATION_CREATE_PAYMENT, { idPayment: idTransaction })
-        
         if(createPayment?.id) await client.request<PostPublishedPaymentMutation>(MUTATION_PUBLISHED_PAYMENT, { id: createPayment.id})
 
         return res.status(200).json({

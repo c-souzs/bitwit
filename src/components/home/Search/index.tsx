@@ -29,7 +29,7 @@ const SearchPost = ({ changeTitleSearch }: SearchPostProps) => {
     }
 
     return (
-        <section className={classNames('w-full', roboto.className)}>
+        <section className={classNames('w-full', roboto.className)} data-testid='search-component'>
             <div className='max-w-6xl h-full w-full mx-auto px-5' role='search' aria-label='Área de filtagrem e busca de posts.'>
                 <form className='max-w-[80vw] w-full mx-auto pt-6 pb-12' onSubmit={handleSearch}>
                     <div className='flex'>

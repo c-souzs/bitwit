@@ -4,7 +4,7 @@ import { roboto } from "pages/_app"
 import { PostCardData } from "types"
 import LinkWrapper from "@/components/ui/Link"
 import PaymentButton from "../PaymentButton"
-import { useSession } from "next-auth/react"
+import useSessionAuthor from "hooks/useSessionAuthor"
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" aria-label="Ícone de seta para a direita, indicando que vai para outra página." xmlns="http://www.w3.org/2000/svg">
@@ -22,11 +22,10 @@ type PostProps = {
     data: PostCardData
 }
 
-
 const PostCard = ({ data }: PostProps) => {
     const { coverImage, title, tags, excerpt, slug, free } = data
     
-    const { data: session } = useSession()
+    const { session } = useSessionAuthor()
 
     const asBlur = (session && session.user) ? false : !free
 

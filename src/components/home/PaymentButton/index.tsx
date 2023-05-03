@@ -35,6 +35,7 @@ const PaymentButton = ({ children }: IPaymentButtonProps) => {
         <Button
             aria-label='Vai para a página de planos de acesso do blog.'
             onClick={() => handlerPurchase()}
+            data-testid='payment-button'
         >
             {children}
         </Button>
