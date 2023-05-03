@@ -26,10 +26,10 @@ const handlerPost: NextApiHandler = async (req, res) => {
                 }
             ],
             mode: 'payment',
-            success_url: `http://localhost:3000/register?success=true`,
-            cancel_url: `http://localhost:3000/register?canceled=true`
+            success_url: `${req.headers.origin}/register?success=true`,
+            cancel_url: `${req.headers.origin}/register?canceled=true`
         })
-
+        
         const idTransaction = session.id
 
         const { createPayment } = await client.request<PostCreatePaymentMutation>(MUTATION_CREATE_PAYMENT, { idPayment: idTransaction })
