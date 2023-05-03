@@ -5,6 +5,7 @@ import { PostCardData } from "types"
 import LinkWrapper from "@/components/ui/Link"
 import PaymentButton from "../PaymentButton"
 import useSessionAuthor from "hooks/useSessionAuthor"
+import Image from "next/image"
 
 const ArrowLeft = () => (
     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" color="#FFF" height="16" width="16" aria-label="Ícone de seta para a direita, indicando que vai para outra página." xmlns="http://www.w3.org/2000/svg">
@@ -48,13 +49,14 @@ const PostCard = ({ data }: PostProps) => {
             }
             <div className={classNames('h-full flex flex-col justify-between', {'blur-[2px]': asBlur})}>
                 <div>
-                    <figure>
-                        <img 
+                    <div className='w-full relative h-[275px]'>
+                        <Image 
                             src={coverImage?.url ? coverImage.url : '/sample-post-demo.png'} 
                             alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}  
                             aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
-                            className='w-full block object-cover'/>
-                    </figure>
+                            fill
+                        />
+                    </div>
                     <div className='p-3'>
                         <h3 className='flex items-center gap-2 text-emerald-500 text-xl font-medium mb-3 before:block before:w-4 before:h-[3px] before:bg-emerald-600 before:rounded'>{ title }</h3>
                         {

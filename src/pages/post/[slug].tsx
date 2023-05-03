@@ -10,6 +10,7 @@ import HeaderPost from "components/post/Header"
 import ContentPost from "components/post/Content"
 import Loader from "components/ui/Loader"
 import useSessionAuthor from "hooks/useSessionAuthor"
+import { NextSeo } from "next-seo"
 
 type PostProps = {
     post: Pick<PostType, 'coverImage' | 'seo' | 'title' | 'tags' | 'content' | 'author' | 'createdAt' | 'free'>
@@ -21,44 +22,54 @@ const Post = ({ post }: PostProps) => {
     const { session } = useSessionAuthor()
 
     return (
-        <LayoutMain footer>
-            {
-                ((session && session.user) || post?.free ) ? (
-                    <article>
-                        <div className='max-w-6xl h-full w-full mx-auto px-5'>
-                            {
-                                router.isFallback && <Loader />
-                            }
-                            {
-                                post && (
-                                    <>
-                                        <HeaderPost 
-                                            title={post.title}
-                                            tags={post.tags}
-                                            author={post.author}
-                                            createdAt={post.createdAt}
-                                        />
-                                        <ContentPost 
-                                            content={post.content}
-                                            coverImage={post.coverImage}
-                                            title={post.title}
-                                        />
-                                    </>
-                                )
-                            }
-                        </div>
-                    </article>
-                ) : (
-                    <section>
-                        <div className='max-w-6xl h-full w-full mx-auto px-5'>
-                            <p className='text-lg text-center'>
-                                Você precisa estar autenticado para acessar o <br /> conteudo do post 🔒🔑
-                            </p>
-                        </div>
-                    </section>
-                )
-            }
-        </LayoutMain>
+        <>
+            <NextSeo 
+                title={`${post.seo?.title} | Bitwit`}
+                description={post.seo?.description || ''}
+                additionalMetaTags={[{
+                    name: 'keywords',
+                    content: `${post.seo?.keywords}`
+                }]}
+            />
+            <LayoutMain footer>
+                {
+                    ((session && session.user) || post?.free ) ? (
+                        <article>
+                            <div className='max-w-6xl h-full w-full mx-auto px-5'>
+                                {
+                                    router.isFallback && <Loader />
+                                }
+                                {
+                                    post && (
+                                        <>
+                                            <HeaderPost 
+                                                title={post.title}
+                                                tags={post.tags}
+                                                author={post.author}
+                                                createdAt={post.createdAt}
+                                            />
+                                            <ContentPost 
+                                                content={post.content}
+                                                coverImage={post.coverImage}
+                                                title={post.title}
+                                            />
+                                        </>
+                                    )
+                                }
+                            </div>
+                        </article>
+                    ) : (
+                        <section>
+                            <div className='max-w-6xl h-full w-full mx-auto px-5'>
+                                <p className='text-lg text-center'>
+                                    Você precisa estar autenticado para acessar o <br /> conteudo do post 🔒🔑
+                                </p>
+                            </div>
+                        </section>
+                    )
+                }
+            </LayoutMain>
+        </>
     )
 }
 

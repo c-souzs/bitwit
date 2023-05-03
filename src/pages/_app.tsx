@@ -4,6 +4,8 @@ import type { AppProps } from 'next/app'
 import { Inter, Roboto, Roboto_Mono } from 'next/font/google'
 import { QueryClientProvider } from 'react-query'
 import { SessionProvider } from 'next-auth/react'
+import Head from 'next/head'
+import NextNProgress from 'nextjs-progressbar';
 
 if(process.env.NEXT_PUBLIC_API_MOCKING === 'true') {
     import('../mocks').then(({ setupMocks }) => {
@@ -29,10 +31,18 @@ export const robotoMono = Roboto_Mono({
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return ( 
-        <SessionProvider session={session}>
-            <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
-            </QueryClientProvider>
-        </SessionProvider>
+        <>
+            <NextNProgress 
+                color='#018673'
+                startPosition={0.3}
+                stopDelayMs={200}
+                height={3}
+            />
+            <SessionProvider session={session}>
+                <QueryClientProvider client={queryClient}>
+                    <Component {...pageProps} />
+                </QueryClientProvider>
+            </SessionProvider>
+        </>
    )
 }

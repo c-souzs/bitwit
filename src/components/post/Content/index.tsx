@@ -5,6 +5,7 @@ import 'prismjs/themes/prism-tomorrow.css'
 
 import { Asset, Maybe, RichText } from "graphql/generated/graphql"
 import { roboto } from "pages/_app"
+import Image from "next/image";
 
 type ContentPostProps = {
     coverImage: Maybe<Asset> | undefined
@@ -57,9 +58,14 @@ const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
     return (
         <section className='pb-14'>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-post'>
-                <figure>
-                    <img src={coverImage?.url} alt={title} className='w-full h-full rounded object-cover'/>
-                </figure>
+                <div className='w-full h-full relative rounded overflow-hidden'>
+                    <Image 
+                        src={coverImage?.url || '/sample-post-demo.png'} 
+                        alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
+                        aria-label={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}
+                        fill
+                    />
+                </div>
                 { isMount && <div dangerouslySetInnerHTML={{__html: startHTML}}/>}
             </div>
             { isMount && 
