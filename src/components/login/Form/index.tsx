@@ -29,7 +29,7 @@ const FormLogin = () => {
 
     return (
         <div className='max-w-sm shadow-div rounded py-6 px-8 sm:px-10'>
-            <FormHeader />
+            <FormHeader title='Faça seu login' />
             <form className='flex flex-col gap-6'onSubmit={handlerLoginAuthor}>
                 <Input label='Email' id='email-login' value={email} changeValue={(newValue: string) => setEmail(newValue)} placeholder='email@gmail.com' type='email' required/>
                 <Input label='Senha' id='password-login' value={password} changeValue={(newValue: string) => setPassword(newValue)} placeholder='••••••••' type='password' required/>

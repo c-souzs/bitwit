@@ -73,7 +73,7 @@ const FormRegister = () => {
     return (
         <>
             <div className='shadow-div rounded py-6 px-8 sm:px-10'>
-                <FormHeader />
+                <FormHeader title='Crie sua conta' />
                 <form className='flex flex-col gap-6' onSubmit={handlerRegister}>
                     <div className='flex flex-wrap gap-6'>
                         <Input label='Nome' id='name-login' value={name} changeValue={(newValue: string) => setName(newValue)} placeholder='Caio Souza' required/>

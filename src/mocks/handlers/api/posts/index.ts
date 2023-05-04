@@ -56,7 +56,7 @@ export const dataTitleSearchEmpty = {
 }
 
 // Intercepta a função e baseado no currentPage e title retornado posts fake
-const handlerPostsGet = rest.get('/api/posts', async (req, res, ctx) => {
+const handlerPostsGet = rest.get('https://bitwit-souzzs.vercel.app/api/posts?currentPage=1&title=', async (req, res, ctx) => {
     const currentPage = req.url.searchParams.get('currentPage') as string
     const currentPageNumber = Number(currentPage)
 

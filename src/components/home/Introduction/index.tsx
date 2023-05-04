@@ -14,7 +14,7 @@ type IntroductionProps = {
 const AlertScroll = () => {
     return (
         <div 
-            className='absolute bottom-12 left-2/4 right-2/4 hidden sm:block'
+            className='absolute bottom-4 left-2/4 right-2/4 sm:bottom-12'
             role='alert'
             aria-label='Role a página para acessar os posts do blog.'
             title='Role para ver mais posts.'

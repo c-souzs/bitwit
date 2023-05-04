@@ -58,7 +58,7 @@ const ContentPost = ({ coverImage, content, title }: ContentPostProps) => {
     return (
         <section className='pb-14'>
             <div className='grid grid-cols-1 gap-6 md:grid-cols-post'>
-                <div className='w-full h-full relative rounded overflow-hidden'>
+                <div className='min-h-[450px] w-full h-full relative rounded overflow-hidden'>
                     <Image 
                         src={coverImage?.url || '/sample-post-demo.png'} 
                         alt={coverImage?.url ? title : 'Imagem de demonstração de banner do post'}

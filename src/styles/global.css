@@ -28,4 +28,8 @@
         background-repeat: no-repeat;
         animation: loaderAnimation 1s infinite linear;
     }
+
+    code {
+        white-space: pre-wrap !important;
+    }
 }
